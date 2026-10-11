@@ -1,0 +1,12 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {sampleInvoice} from '../fixtures/invoice.js';
+import {XmlGenerator} from '../src/fatture/xml-generator.js';
+import {XsdValidator} from '../src/fatture/xml-validator.js';
+import {xmlEngine} from '../src/xml/engine.js';
+const xml=await new XmlGenerator().generate(sampleInvoice());
+const validation=await new XsdValidator().validate(xml);
+const soap=await xmlEngine({mode:'request',filename:'IT12345678903_TEST1.xml',xml});
+const dir=new URL('../data/fiscal-demo/',import.meta.url);await mkdir(dir,{recursive:true});
+await writeFile(new URL('fattura-test.xml',dir),xml);
+await writeFile(new URL('richiesta-soap-test.xml',dir),soap.xml);
+console.log({testOnly:true,networkUsed:false,...validation,soapAction:soap.action,output:dir.pathname});

@@ -1,0 +1,7 @@
+data/
+*.sqlite*
+.env
+*.pem
+*.key
+*.p12
+*.pfx

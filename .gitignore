@@ -1,0 +1,41 @@
+# Dipendenze
+node_modules/
+.npm/
+npm-cache/
+
+# Compilazioni
+target/
+dist/
+build/
+coverage/
+*.log
+
+# File temporanei
+tmp/
+temp/
+.cache/
+
+# Credenziali
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.mobileprovision
+
+# Dati locali
+*.sqlite
+*.sqlite3
+*.db
+
+# Cartelle da non pubblicare
+/work/
+/outputs/backup-pc/
+/outputs/Officina-Android-firma-privata/
+/outputs/Backup-Officina-PC.zip
+/outputs/Officina-Aggiornamenti-firma-privata/

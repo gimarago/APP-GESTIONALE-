@@ -1,0 +1,70 @@
+.parking-head h2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.parking-vehicle-count {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.parking-search-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.parking-search-toolbar label {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.parking-search-toolbar input {
+  min-width: 180px;
+  width: min(300px, 100%);
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--surface, #fff);
+  color: var(--ink);
+  font: 12px Manrope, sans-serif;
+}
+
+.parking-search-toolbar input:focus-visible {
+  outline: 2px solid var(--cyan, #71d7ec);
+  outline-offset: 1px;
+}
+
+.parking-search-toolbar [role="status"] {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.parking-search-empty {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.parking-search-empty[hidden] { display: none; }
+
+@media (max-width: 600px) {
+  .parking-search-toolbar input {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}

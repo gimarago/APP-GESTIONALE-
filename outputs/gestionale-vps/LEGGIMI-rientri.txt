@@ -1,0 +1,59 @@
+FUORI CASSA E RIENTRI
+
+Nel Libro contabile, indica il valore Fuori cassa del lavoro completato.
+Premi + Rientro, cerca per cliente, targa o lavorazione, seleziona il lavoro
+e scegli la data effettiva di pagamento. La conferma salda tutto il residuo.
+
+Il lavoro originale conserva importo, profitto e cassa iniziale; il suo
+Fuori cassa diventa zero. Nel giorno del rientro compare una nuova riga
+con il saldo nella sola colonna In cassa: importo e profitto sono zero.
+Il rientro non incrementa una seconda volta gli incassi dei grafici.
+
+Data analysis mostra il totale ancora da ricevere, i clienti e i lavori
+aperti, i giorni di attesa, lo storico dei rientri e il tempo medio al saldo.
+I giorni si calcolano dalla data del lavoro alla data di pagamento.
+Il riepilogo comprende tutte le date, indipendentemente dai filtri dei grafici.
+I tempi sono disponibili per i rientri registrati con questa funzione.
+
+Il registro viene salvato nel browser in uso. Mantieni lo stesso browser
+e lo stesso percorso/indirizzo dell'app per ritrovarlo. Non è un backup
+completo dell'agenda e degli altri moduli. Lo storico conserva una copia
+dei lavori collegati ai movimenti, anche dopo la riapertura dell'app.
+Eventuali errori di salvataggio vengono mostrati e impediscono il rientro.
+
+Verifiche: 8 test automatici del registro superati; verificato nel browser
+un saldo di 65 euro dopo 3 giorni, le due giornate contabili distinte,
+gli incassi invariati, la riapertura e l'assenza di duplicazioni.
+
+AGGIORNAMENTO: MODIFICHE AI LAVORI, NOTE E POST-IT
+
+Dopo un saldo, correggere l'importo del lavoro aggiorna anche il rientro
+collegato, mantenendone la data e senza creare un secondo incasso.
+Le precedenti cifre del rientro sono conservate nel registro delle correzioni.
+
+Se il lavoro passa da COMPLETATO a un altro stato, la riga del lavoro
+scompare dal libro contabile insieme ai rientri collegati, esclusi anche dai totali.
+Se torna COMPLETATO, i rientri collegati tornano visibili senza duplicazioni.
+Il pulsante Da svolgere ripristina il lavoro nell'agenda o nel parcheggio,
+anche se era stato rimosso; l'importo e le note vengono conservati.
+Le lavorazioni archiviate sono nuovamente apribili e modificabili.
+
+Note è disponibile nelle accettazioni e nelle schede del parcheggio.
+Le note compaiono anche nello storico degli interventi del cliente.
+La ricerca in alto compare soltanto in Clienti e veicoli.
+
+Post-it nella barra laterale permette di aggiungere, modificare,
+segnare come fatti, riaprire ed eliminare appunti personali.
+Note e Post-it sono salvati nel browser in uso.
+
+Verifiche aggiornate: 11 test del registro; prove nel browser su modifica
+65→50 euro dopo il saldo, stato In lavorazione, riapertura, note nello storico,
+ricerca clienti e persistenza dei Post-it.
+
+POST-IT E PRENOTAZIONI
+Post-it si trova sotto Magazzino. Il cruscotto mostra gli ultimi quattro appunti
+ancora da completare; cliccando si apre la modifica.
+Prenotato somma i prodotti riconosciuti dei lavori in agenda e parcheggio
+con stato diverso da COMPLETATO, inclusi quelli arretrati. La scorta fisica
+non viene modificata. Specificare quantità e prodotto; indicazioni generiche
+o ambigue non vengono attribuite automaticamente a una scorta.

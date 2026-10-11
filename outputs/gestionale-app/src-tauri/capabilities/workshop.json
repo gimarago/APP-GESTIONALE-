@@ -1,0 +1,9 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "workshop",
+  "description": "Solo il dominio del gestionale può chiedere salvataggio/condivisione, stampa e apertura di collegamenti autorizzati.",
+  "local": false,
+  "remote": { "urls": ["https://api.magomme.it/*"] },
+  "windows": ["main"],
+  "permissions": ["allow-client-ready", "allow-open-external", "officina-documents:allow-export-document", "officina-documents:allow-print-document"]
+}

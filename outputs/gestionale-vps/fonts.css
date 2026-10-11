@@ -1,0 +1,23 @@
+/* Original workshop typefaces, served by this application.
+   Licenses and source hashes are included in fonts/. */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('./fonts/Manrope-Variable.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/DMMono-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/DMMono-Medium.ttf') format('truetype');
+}

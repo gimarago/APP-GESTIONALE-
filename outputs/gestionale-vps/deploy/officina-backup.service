@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup online verificato del gestionale Officina
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/officina
+ExecStart=/usr/bin/bash /opt/officina/deploy/backup.sh
+Environment=RETENTION_DAYS=30
+UMask=0077

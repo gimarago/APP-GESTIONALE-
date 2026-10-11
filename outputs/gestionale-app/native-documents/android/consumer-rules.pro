@@ -1,0 +1,1 @@
+-keep class it.magomme.documents.** { *; }

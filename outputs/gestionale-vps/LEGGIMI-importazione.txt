@@ -1,0 +1,46 @@
+IMPORTAZIONE EXCEL / GOOGLE FOGLI
+
+Impostazioni > Importa magazzino / Importa storico clienti e veicoli.
+Supportati .xlsx, .csv, .tsv e celle copiate da Excel o Google Fogli.
+Per Google Fogli: seleziona la tabella con le intestazioni, copia e incolla
+nell'app. Non serve pubblicare il foglio o concedere accesso all'account.
+Per vecchi file .xls, salva prima in .xlsx o copia le celle.
+
+Scegli il foglio, controlla le colonne, prepara l'anteprima e conferma.
+Le righe con errori bloccano l'importazione. I duplicati sono ignorati;
+le righe già presenti non vengono sovrascritte. Limiti: 10 MB, 10.000 righe.
+Le formule non vengono eseguite: vengono letti i valori salvati nel file.
+
+Magazzino: Prodotto e Quantità obbligatori. Facoltativi: Unità, Categoria,
+Prezzo, Posizione e Profitto unitario. Unità predefinita pz.
+Storico: Cliente e Targa obbligatori; la Data è obbligatoria se è presente
+una Lavorazione. Facoltativi: Veicolo, Telefono, Email, Importo, Note, Km.
+Lo storico importato compare nella scheda del cliente e non genera incassi
+né scarichi di magazzino retroattivi.
+
+I dati importati sono conservati nel browser e nello stesso indirizzo dell'app.
+Verificata la lettura di un file XLSX, l'importazione di scorte e dello storico,
+le note, i numeri italiani e i controlli sui campi obbligatori.
+
+AVVISI DI MAGAZZINO
+Il controllo avviene al salvataggio e al cambio dello stato, senza il precedente
+ritardo. Gli avvisi riportano il cliente e si aggiornano anche modificando
+le scorte. Gli appuntamenti sono filtrati per la giornata selezionata;
+i lavori in parcheggio restano visibili con il rispettivo cliente.
+
+DATI SENZA INTESTAZIONI
+Sono supportati anche file e celle incollate senza intestazioni. La prima
+riga viene conservata. Controlla la casella «La prima riga contiene le
+intestazioni» e scegli gli abbinamenti usando gli esempi delle colonne.
+Prodotto e Quantità sono obbligatori per il magazzino; Cliente e Targa
+per l'anagrafica. L'anteprima si aggiorna automaticamente dopo ogni scelta.
+Conferma importazione si abilita quando ci sono righe nuove senza errori.
+Le quantità vuote vengono importate come zero. Se quantità e prezzo non
+hanno intestazioni, seleziona le rispettive colonne prima di confermare.
+
+RIORDINO NELL'IMPORTAZIONE
+Puoi abbinare Soglia riordino e Avviso riordino attivo alle colonne del file.
+L'avviso accetta sì/no, true/false, 1/0, attivo/disattivato o on/off.
+Se le colonne non sono selezionate o i valori sono vuoti, vengono usati
+soglia 5 e avviso attivo. I valori non riconosciuti sono segnalati come errori.
+Con riordino disattivato lo stato non viene mostrato nella tabella magazzino.

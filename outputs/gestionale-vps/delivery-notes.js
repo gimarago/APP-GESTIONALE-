@@ -1,0 +1,60 @@
+(function(root){
+  'use strict';
+  function parse(text){
+    return String(text).split(/\r?\n/).map(line=>{
+      const m=line.trim().match(/^(.+?)\s+(pz|nr|n\.|kg|lt|l|ml|pezzi)\s+(\d+(?:[.,]\d+)?)\b/i)||line.trim().match(/^(.+?)\s+(\d+(?:[.,]\d+)?)\s+(pz|nr|kg|lt|l|ml|pezzi)\b/i);
+      if(!m)return null;const swapped=/^\d/.test(m[2]);const unit=(swapped?m[3]:m[2]).toLowerCase();return {description:m[1].trim(),quantity:Number((swapped?m[2]:m[3]).replace(',','.')),unit:({nr:'pz','n.':'pz',pezzi:'pz',l:'lt'})[unit]||unit};
+    }).filter(x=>x&&x.quantity>0&&!/^(totale|quantit|descrizione)/i.test(x.description));
+  }
+  if(typeof module!=='undefined'&&module.exports){module.exports={parse};return;}
+  const $=id=>document.getElementById(id),api=root.stockInventoryApi;if(!api)return;
+  const key='officina.deliveryLoads.v1';let journal=[],savedStock=null;try{const saved=JSON.parse(localStorage.getItem(key)||'[]');journal=Array.isArray(saved)?saved:saved.journal||[];savedStock=saved.stock;}catch{}
+  document.addEventListener('workshop-cloud-state-loading',event=>{
+    clearTimeout(saveTimer);
+    if(event.detail?.storageKeys&&!event.detail.storageKeys.includes(key))return;
+    try{const saved=JSON.parse(localStorage.getItem(key)||'[]');journal=Array.isArray(saved)?saved:Array.isArray(saved.journal)?saved.journal:[];savedStock=Array.isArray(saved)?null:saved.stock;}
+    catch{journal=[];savedStock=null;}
+  });
+  if(!window.WorkshopCloud && Array.isArray(savedStock)){const rows=savedStock.map(data=>{const row=document.createElement('tr');for(const value of data.cells){const td=document.createElement('td');td.textContent=value;row.append(td);}Object.assign(row.dataset,data.dataset);return row;});$('stockRows').replaceChildren(...rows);}
+  const snapshot=()=>api.rows().map(r=>({cells:[...r.cells].map((c,i)=>i===2?api.quantityFor(r)+' '+api.unitFor(r):c.textContent),dataset:{...r.dataset}}));
+  const persist=records=>localStorage.setItem(key,JSON.stringify({journal:records,stock:snapshot()}));
+  const button=document.createElement('button');button.className='btn secondary';button.textContent='Importa bolla di consegna';button.type='button';const head=document.querySelector('#magazzino .page-head'),actions=document.createElement('div');actions.className='stock-header-actions';actions.style.cssText='display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-left:auto';const addStock=head.querySelector('button.btn');if(addStock)actions.append(addStock);actions.append(button);head.append(actions);
+  const modal=document.createElement('div');modal.id='deliveryNoteModal';modal.className='form-modal';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.innerHTML='<div class="modal-card" style="max-width:1000px;width:94vw;max-height:90vh;overflow:auto"><h2>Carico da bolla di consegna</h2><p>Carica PDF, foto o testo della bolla, verifica ogni riga e conferma il carico. Le righe non riconosciute si possono aggiungere manualmente.</p><input id="ddtFile" type="file" accept="application/pdf,image/png,image/jpeg,image/webp,text/plain,.txt"><p>Per foto e PDF scansionati il motore OCR viene scaricato da Internet; il documento viene elaborato nel browser.</p><div class="form-grid"><label>Fornitore<input id="ddtSupplier"></label><label>Numero bolla<input id="ddtNumber"></label><label>Data bolla<input id="ddtDate" type="date"></label></div><details><summary>Testo letto / incolla testo</summary><textarea id="ddtText" style="width:100%;height:140px"></textarea><button id="ddtParse" class="btn secondary" type="button">Rileggi righe dal testo</button></details><p id="ddtStatus" role="status"></p><div style="overflow:auto"><table class="page-table"><thead><tr><th>Descrizione letta</th><th>Quantità</th><th>Unità</th><th>Articolo da caricare</th><th></th></tr></thead><tbody id="ddtLines"></tbody></table></div><button id="ddtAdd" type="button" class="link">+ Aggiungi riga</button><p>Per creare un articolo, scegli “Nuovo articolo”: viene usata la descrizione della riga. Nessun prezzo o ricarico viene dedotto dalla bolla.</p><div class="modal-actions"><button id="ddtCancel" class="btn secondary">Chiudi</button><button id="ddtApply" class="btn">Conferma carico</button></div><details><summary>Carichi registrati</summary><div id="ddtHistory"></div></details></div>';
+  document.querySelector('main').append(modal);let hash='',busy=false;const normal=v=>String(v).trim().toLowerCase().replace(/\s+/g,' ');
+  const status=t=>$('ddtStatus').textContent=t;
+  function add(item={description:'',quantity:1,unit:'pz'}){
+    const row=document.createElement('tr');row.innerHTML='<td><input class="ddt-description" aria-label="Descrizione"></td><td><input class="ddt-quantity" type="number" min="0.001" step="0.001" aria-label="Quantità" style="width:85px"></td><td><select class="ddt-unit" aria-label="Unità"><option>pz</option><option>kg</option><option>g</option><option>lt</option><option>m</option></select></td><td><select class="ddt-target" aria-label="Articolo in magazzino"></select></td><td><button type="button" class="link">×</button></td>';
+    row.querySelector('.ddt-description').value=item.description;if(item.unit==='ml')item={...item,unit:'lt',quantity:item.quantity/1000};row.querySelector('.ddt-quantity').value=item.quantity;row.querySelector('.ddt-unit').value=item.unit;const select=row.querySelector('.ddt-target');select.add(new Option('Seleziona articolo',''));select.add(new Option('Nuovo articolo','new'));const stocks=api.rows();stocks.forEach((r,i)=>{const o=new Option(api.productName(r)+' · '+api.unitFor(r),String(i));o.stockRow=r;select.add(o);});const exact=[...select.options].filter(o=>o.stockRow&&normal(api.productName(o.stockRow))===normal(item.description)&&api.unitFor(o.stockRow)===item.unit);if(exact.length===1)select.value=exact[0].value;row.querySelector('button').onclick=()=>row.remove();$('ddtLines').append(row);
+  }
+  function review(){const lines=parse($('ddtText').value);$('ddtLines').replaceChildren();lines.forEach(add);status(lines.length+' righe proposte. Verifica descrizione, quantità e articolo prima del carico.');}
+  const loadScript=src=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(Error('Impossibile caricare '+src));document.head.append(s);});
+  let libs;
+  async function ocr(source){if(!root.Tesseract)await loadScript('vendor/tesseract.min.js');const worker=await Tesseract.createWorker('ita',1,{logger:m=>status('Lettura OCR: '+Math.round((m.progress||0)*100)+'%')});try{return (await worker.recognize(source)).data.text;}finally{await worker.terminate();}}
+  $('ddtFile').onchange=async()=>{const file=$('ddtFile').files[0];if(!file)return;if(file.size>30*1024*1024){status('Il limite per documento è 30 MB.');return;}busy=true;$('ddtApply').disabled=true;$('ddtLines').replaceChildren();hash='';status('Lettura in corso…');try{const bytes=await file.arrayBuffer();hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');if(journal.some(x=>x.hash===hash))throw Error('Questa bolla è già stata caricata.');let text='';if(file.type==='application/pdf'||/\.pdf$/i.test(file.name)){libs??=loadScript('vendor/ddt-pdf-worker.js').then(()=>loadScript('vendor/ddt-pdf.js'));await libs;const doc=await DDTPDF.getDocument({data:new Uint8Array(bytes),useSystemFonts:true}).promise;try{if(doc.numPages>30)throw Error('Massimo 30 pagine per bolla.');for(let n=1;n<=doc.numPages;n++){const page=await doc.getPage(n),content=await page.getTextContent();let lastY=null,chunk='';for(const item of content.items){if(!item.str)continue;const y=Math.round(item.transform[5]);chunk+=(lastY!==null&&Math.abs(lastY-y)>3?'\n':' ')+item.str;lastY=y;}if(chunk.trim().length<20){const viewport=page.getViewport({scale:1.8}),canvas=document.createElement('canvas');canvas.width=viewport.width;canvas.height=viewport.height;await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;chunk=await ocr(canvas);}text+=chunk+'\n';}}finally{await doc.destroy();}}else if(file.type.startsWith('image/'))text=await ocr(file);else text=await file.text();$('ddtText').value=text;review();}catch(e){status(e.message);$('ddtText').value='';}finally{busy=false;$('ddtApply').disabled=false;}};
+  $('ddtParse').onclick=review;$('ddtAdd').onclick=()=>add();$('ddtCancel').onclick=()=>{if(!busy)modal.classList.remove('open');};
+  button.onclick=()=>{modal.classList.add('open');$('ddtHistory').replaceChildren();journal.forEach(j=>{const p=document.createElement('p');p.textContent=j.supplier+' · '+j.number+' · '+j.date+' · '+j.lines.length+' righe';$('ddtHistory').append(p);});};
+  // Shared stock is authoritative in the cloud snapshot. Rewriting the DDT
+  // archive after a remote redraw would turn hydration into a new mutation.
+  let saveTimer;if(!window.WorkshopCloud)new MutationObserver(()=>{clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(journal.length)try{persist(journal);}catch{status('Impossibile salvare le ultime quantità nel browser.');}},300);}).observe($('stockRows'),{childList:true,subtree:true,characterData:true});
+  $('ddtApply').onclick=()=>{
+    if(busy)return;const supplier=$('ddtSupplier').value.trim(),number=$('ddtNumber').value.trim(),date=$('ddtDate').value;
+    if(!supplier||!number||!date){status('Compila fornitore, numero e data della bolla.');return;}
+    const identity=normal(supplier)+'|'+normal(number)+'|'+date;
+    if(journal.some(j=>j.identity===identity||(hash&&j.hash===hash))){status('Bolla già caricata: nessuna quantità modificata.');return;}
+    const changes=[];
+    for(const row of $('ddtLines').rows){const description=row.querySelector('.ddt-description').value.trim(),quantity=Number(row.querySelector('.ddt-quantity').value),unit=row.querySelector('.ddt-unit').value,select=row.querySelector('.ddt-target'),target=select.selectedOptions[0]?.stockRow;
+      if(!description||!Number.isFinite(quantity)||quantity<=0||!select.value||(unit==='pz'&&!Number.isInteger(quantity))){status('Completa tutte le righe con quantità positive e articolo selezionato.');return;}
+      if(target&&(!target.isConnected||api.unitFor(target)!==unit)){status('Unità diversa o articolo rimosso: correggi la selezione.');return;}
+      if(select.value==='new'&&api.rows().some(r=>normal(api.productName(r))===normal(description))){status('Articolo già presente: selezionalo dal magazzino.');return;}
+      if(api.quantize(quantity,unit)!==quantity){status('Quantità troppo precisa per questa unità: '+description);return;}
+      if(select.value==='new'&&changes.some(c=>!c.target&&normal(c.description)===normal(description))){status('Unisci le righe del nuovo articolo '+description+' prima del carico.');return;}
+      changes.push({description,quantity,unit,target});
+    }
+    if(!changes.length){status('Aggiungi almeno una riga.');return;}
+    const backups=api.rows().map(r=>[r,r.innerHTML,{...r.dataset}]),created=[];
+    try{for(const item of changes){let target=item.target;if(!target){target=document.createElement('tr');for(const value of [item.description,'Materiali di consumo','0 '+item.unit,'€ —','—','DISPONIBILE']){const td=document.createElement('td');td.textContent=value;target.append(td);}target.dataset.unit=item.unit;$('stockRows').append(target);created.push(target);}api.setQuantity(target,api.quantityFor(target)+item.quantity);}
+      const record={identity,hash,supplier,number,date,lines:changes.map(({target,...data})=>data)};
+      persist([...journal,record]);journal.push(record);$('ddtLines').replaceChildren();status('Carico registrato: '+changes.length+' righe aggiornate.');root.renderStockPageTotal?.();root.renderCriticalStock?.();
+    }catch(e){backups.forEach(([row,html,dataset])=>{row.innerHTML=html;Object.assign(row.dataset,dataset);});created.forEach(r=>r.remove());status('Carico annullato: '+e.message);}
+  };
+})(typeof window!=='undefined'?window:globalThis);

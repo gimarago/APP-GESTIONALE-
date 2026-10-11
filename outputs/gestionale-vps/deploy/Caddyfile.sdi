@@ -1,0 +1,59 @@
+{
+    email {$ACME_EMAIL}
+    # Enforce the same hostname during TLS and HTTP routing, including when
+    # the ordinary application and the mTLS channel share this listener.
+    servers {
+        strict_sni_host on
+    }
+}
+
+# Normal browser interface still uses automatic public HTTPS.
+{$OFFICINA_DOMAIN} {
+    encode zstd gzip
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "no-referrer"
+        -Server
+    }
+    @sdi path /sdi/*
+    respond @sdi 404
+    reverse_proxy app:8080 {
+        header_up -X-Sdi-Gateway-Token
+        header_up -X-Sdi-Peer-Fingerprint
+        header_up -X-Sdi-Gateway-Host
+        flush_interval -1
+    }
+}
+
+# Separate accredited endpoint. The supplied server identity and trust roots
+# are those approved for this channel/environment, NOT arbitrary public CAs.
+{$SDI_DOMAIN} {
+    tls /run/sdi/server-cert.pem /run/sdi/server-key.pem {
+        client_auth {
+            mode require_and_verify
+            trust_pool file /run/sdi/peer-ca.pem
+        }
+    }
+    request_body {
+        max_size 18MB
+    }
+    @callbacks {
+        method POST
+        path /sdi/notifications /sdi/invoices
+    }
+    handle @callbacks {
+        reverse_proxy app:8080 {
+            # Set (replace) all three values; never forward caller-supplied identity.
+            header_up X-Sdi-Gateway-Token {$SDI_GATEWAY_TOKEN}
+            header_up X-Sdi-Peer-Fingerprint {tls_client_fingerprint}
+            header_up X-Sdi-Gateway-Host {$SDI_DOMAIN}
+            transport http {
+                response_header_timeout 55s
+            }
+        }
+    }
+    handle {
+        respond 404
+    }
+}

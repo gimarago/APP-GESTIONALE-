@@ -1,0 +1,41 @@
+#appointmentCalendarModal .appointment-calendar-card{width:min(1400px,100%);max-height:calc(100dvh - 36px);display:flex;flex-direction:column;overflow:hidden;min-width:0;box-sizing:border-box;background:var(--surface,var(--paper,#fff));color:var(--ink);padding:24px}
+#appointmentCalendarModal .appointment-calendar-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}
+#appointmentCalendarModal .appointment-calendar-heading h2{margin:0}
+#appointmentCalendarModal .appointment-calendar-hint{font-size:12px;line-height:1.6;margin:10px 0 16px}
+#appointmentCalendarModal .appointment-calendar-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:12px}
+#appointmentCalendarModal #appointmentCalendarRange{font-size:14px;margin-right:auto}
+#appointmentCalendarModal .appointment-calendar-date-label{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+#appointmentCalendarModal #appointmentCalendarDate{padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--paper,#fff);color:var(--ink);font:inherit;min-width:0}
+#appointmentCalendarModal .appointment-calendar-full-day{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);cursor:pointer}
+#appointmentCalendarModal .appointment-calendar-full-day input{accent-color:var(--green);width:auto;margin:0}
+#appointmentCalendarModal .appointment-calendar-scroll{min-height:180px;overflow:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:10px;max-height:65dvh;flex:1 1 auto}
+#appointmentCalendarModal .appointment-calendar-table{table-layout:fixed;border-collapse:separate;border-spacing:0;width:100%;min-width:1050px;font-size:11px}
+#appointmentCalendarModal .appointment-calendar-table th,#appointmentCalendarModal .appointment-calendar-table td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);box-sizing:border-box}
+#appointmentCalendarModal .appointment-calendar-table th:last-child,#appointmentCalendarModal .appointment-calendar-table td:last-child{border-right:0}
+#appointmentCalendarModal .appointment-calendar-table thead th{position:sticky;top:0;z-index:3;background:var(--surface,var(--paper,#fff));text-align:center;height:56px;color:var(--muted)}
+#appointmentCalendarModal .appointment-calendar-table thead th span{display:block;text-transform:uppercase;font-size:10px}
+#appointmentCalendarModal .appointment-calendar-table thead th strong{display:inline-block;font-size:18px;color:var(--ink);margin-top:2px;min-width:30px;padding:2px;border-radius:50%}
+#appointmentCalendarModal .appointment-calendar-table thead th.is-today strong{background:var(--green);color:var(--paper,#fff)}
+#appointmentCalendarModal .appointment-calendar-table th:first-child{width:64px;position:sticky;left:0;background:var(--surface,var(--paper,#fff));z-index:2;color:var(--muted);text-align:center;font-weight:600;font-size:11px}
+#appointmentCalendarModal .appointment-calendar-table thead th:first-child{z-index:4}
+#appointmentCalendarModal .appointment-calendar-table td{height:54px;position:relative;vertical-align:top;padding:0}
+#appointmentCalendarModal .appointment-calendar-slot{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer;border-radius:0;outline-offset:-3px}
+#appointmentCalendarModal .appointment-calendar-slot:hover{background:color-mix(in srgb,var(--green) 10%,transparent)}
+#appointmentCalendarModal .appointment-calendar-slot[aria-pressed=true]{background:color-mix(in srgb,var(--green) 18%,transparent);box-shadow:inset 0 0 0 2px var(--green)}
+#appointmentCalendarModal .appointment-calendar-events{position:relative;z-index:1;display:grid;gap:2px;padding:3px;pointer-events:none}
+#appointmentCalendarModal .appointment-calendar-event{border:1px solid color-mix(in srgb,var(--green) 45%,var(--line));border-radius:6px;background:color-mix(in srgb,var(--green) 16%,var(--surface,var(--paper,#fff)));color:var(--ink);padding:4px 6px;min-height:48px;text-align:left;font:inherit;line-height:1.35;cursor:pointer;pointer-events:auto;min-width:0;width:100%}
+#appointmentCalendarModal .appointment-calendar-event b{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#appointmentCalendarModal .appointment-calendar-event span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;color:var(--muted)}
+#appointmentCalendarModal .appointment-calendar-event.is-completed{border-color:#50a784;background:color-mix(in srgb,#50a784 13%,var(--surface,var(--paper,#fff)))}
+#appointmentCalendarModal .appointment-calendar-deadlines th:first-child{font-size:10px;line-height:1.5;padding:6px}
+#appointmentCalendarModal .appointment-calendar-deadlines td{height:auto;min-height:54px;padding:3px;vertical-align:top}
+#appointmentCalendarModal .appointment-calendar-deadline{display:block;width:100%;min-width:0;border:1px solid #c74e4e;border-left:3px solid #c74e4e;border-radius:6px;padding:4px 6px;margin-bottom:3px;background:color-mix(in srgb,#c74e4e 16%,var(--surface,var(--paper,#fff)));color:var(--ink);text-align:left;font:inherit;line-height:1.35;cursor:pointer}
+#appointmentCalendarModal .appointment-calendar-deadline:last-child{margin-bottom:0}
+#appointmentCalendarModal .appointment-calendar-deadline b{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#appointmentCalendarModal .appointment-calendar-deadline span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px}
+#appointmentCalendarModal .appointment-calendar-deadline:focus-visible{outline:2px solid #c74e4e;outline-offset:2px}
+#appointmentCalendarModal .appointment-calendar-deadline:disabled{cursor:default;opacity:.8}
+#appointmentCalendarModal .appointment-calendar-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:0 0 auto;padding-top:14px}
+#appointmentCalendarModal #appointmentCalendarSelection{margin:0;font-size:12px;line-height:1.5}
+#appointmentCalendarModal .btn{flex:0 0 auto}
+@media(max-width:700px){#appointmentCalendarModal{padding:10px}#appointmentCalendarModal .appointment-calendar-card{max-height:calc(100dvh - 20px);padding:14px}#appointmentCalendarModal .appointment-calendar-heading h2{font-size:18px}#appointmentCalendarModal .appointment-calendar-hint{font-size:11px;margin:8px 0 10px}#appointmentCalendarModal #appointmentCalendarRange{order:2;flex-basis:100%;margin:3px 0}#appointmentCalendarModal .appointment-calendar-date-label{margin-left:auto}#appointmentCalendarModal .appointment-calendar-full-day{order:3}#appointmentCalendarModal .appointment-calendar-scroll{max-height:56dvh}#appointmentCalendarModal .appointment-calendar-footer{align-items:stretch;flex-direction:column;gap:8px}#appointmentCalendarModal .appointment-calendar-footer .btn{width:100%}}

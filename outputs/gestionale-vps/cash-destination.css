@@ -1,0 +1,29 @@
+.cash-destination {display:grid;gap:4px;min-width:112px;align-content:center}
+.cash-destination-switch {display:inline-flex;align-items:center;gap:7px;position:relative;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.cash-destination-switch input {position:absolute;z-index:1;width:36px;height:22px;margin:0;opacity:0;cursor:pointer}
+.cash-destination-track {display:block;flex:none;width:32px;height:18px;border:1px solid var(--line);border-radius:20px;background:var(--paper);position:relative}
+.cash-destination-track::after {content:"";position:absolute;width:12px;height:12px;top:2px;left:2px;border-radius:50%;background:var(--muted);transition:transform .15s ease}
+.cash-destination-input:checked + .cash-destination-track {background:var(--green);border-color:var(--green)}
+.cash-destination-input:checked + .cash-destination-track::after {transform:translateX(14px);background:var(--white,#fff)}
+.cash-destination-input:focus-visible + .cash-destination-track {outline:2px solid var(--accent,var(--green));outline-offset:3px}
+.cash-destination.is-locked .cash-destination-switch,.cash-destination-input:disabled {cursor:default}
+.cash-destination.is-locked .cash-destination-track {opacity:.65}
+.cash-destination-reason {max-width:135px;font-size:9px;line-height:1.35;color:var(--muted);white-space:normal}
+.cash-destination-reason[hidden] {display:none}
+#agenda .parking-row {grid-template-columns:1.1fr .6fr .6fr 1.4fr .75fr .85fr 1fr .88fr}
+.deposit-control {display:grid;gap:5px;min-width:95px;align-content:center}
+.deposit-amount {font-size:12px;white-space:nowrap}
+.deposit-caption {font-size:10px;color:var(--muted);text-transform:uppercase}
+.deposit-register {justify-self:start;border:1px solid var(--line);border-radius:6px;padding:4px 7px;background:var(--paper);color:var(--ink);font:700 10px Manrope;cursor:pointer}
+.deposit-register:disabled {opacity:.5;cursor:default}
+.deposit-register:focus-visible {outline:2px solid var(--accent,var(--green));outline-offset:2px}
+#depositDialog {width:min(440px,calc(100vw - 24px));box-sizing:border-box;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--white);color:var(--ink);max-height:90dvh;overflow:auto}
+#depositDialog::backdrop {background:#0009}
+#depositDialog p {line-height:1.5;font-size:12px}
+#depositValue {box-sizing:border-box;width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit}
+#depositError {color:#ec8e6e}
+@media(max-width:1100px) {
+  #agenda .parking-row {grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  #agenda .parking-row>div:nth-child(4) {grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce) {.cash-destination-track::after {transition:none}}

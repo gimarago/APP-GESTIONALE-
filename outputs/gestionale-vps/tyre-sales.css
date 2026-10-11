@@ -1,0 +1,20 @@
+#tyreSalesModal .modal-card { width: min(680px, 100%); box-sizing: border-box; min-width: 0; max-height: 90dvh; overflow: auto; }
+#tyreSalesModal .sales-calendar-head { display: grid; gap: 12px; min-width: 0; margin: 18px 0 8px; }
+#tyreSalesModal .sales-range-field { max-width: 100%; }
+#tyreSalesModal label { display: grid; gap: 5px; min-width: 0; font-size: 11px; color: var(--muted); }
+#tyreSalesModal input, #tyreSalesModal select { box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; padding: 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: inherit; font-size: 12px; }
+#tyreSalesModal #salesPeriodNavigation { display: flex; align-items: flex-end; gap: 10px; min-width: 0; }
+#tyreSalesModal #salesCalendarSelection { display: flex; flex: 1; flex-wrap: wrap; gap: 10px; min-width: 0; }
+#tyreSalesModal #salesDateField, #tyreSalesModal #salesMonthField { flex: 1 1 140px; }
+#tyreSalesModal #salesYearField { flex: 1 1 80px; }
+#tyreSalesModal #salesPreviousDay, #tyreSalesModal #salesNextDay { flex: 0 0 38px; height: 38px; }
+#tyreSalesModal #salesCustomDates { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 12px; width: 100%; }
+#tyreSalesModal [hidden], #tyreSalesModal .hidden { display: none !important; }
+#tyreSalesModal #salesPeriodLabel { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; margin: 12px 0; }
+#tyreSalesModal .sales-item { gap: 12px; }
+#tyreSalesModal .sales-item > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+#tyreSalesModal .sales-item > span:last-child { flex-shrink: 0; }
+@media (max-width: 480px) {
+  #tyreSalesModal .modal-card { padding: 20px; }
+  #tyreSalesModal #salesCustomDates { grid-template-columns: minmax(0, 1fr); }
+}

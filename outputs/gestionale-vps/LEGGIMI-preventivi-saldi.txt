@@ -1,0 +1,60 @@
+PREVENTIVI E SALDO FATTURE
+
+Il pulsante + Preventivo apre una scheda con cliente, veicolo, data,
+lavorazioni, quantità, prezzi IVA inclusa e note. Salva preventivo conserva
+il documento nell'archivio, accessibile anche da Apri preventivi nella
+sezione Preventivi e fatture.
+
+Nella fattura controlla Lavoro collegato nel libro contabile. Per i documenti
+esistenti viene proposto automaticamente un collegamento soltanto quando
+cliente, targa e importo identificano un unico lavoro.
+Seleziona Saldata, indica Data saldo e premi Salva pagamento (oppure salva
+la bozza). Il fuori cassa residuo del lavoro si azzera e viene registrato
+un rientro nella data indicata, senza duplicare importo e profitto.
+Cliente e totale fattura devono corrispondere al lavoro collegato.
+Le note di credito non generano questi rientri. Le fatture senza collegamento
+aggiornano solamente il proprio stato di pagamento.
+Salvare nuovamente non duplica il rientro. Tornando a Da saldare, il rientro
+creato da quella fattura viene rimosso e il residuo ripristinato.
+
+In Data analysis, il tempo medio al saldo considera i debiti ancora aperti e i
+rientri registrati, raggruppando tutti i veicoli dello stesso cliente. Per ogni
+debito aperto i giorni decorrono dal completamento e si aggiornano ogni giorno;
+quando il saldo viene registrato il conteggio si ferma e resta il tempo effettivo
+tra completamento e pagamento. Le medie non sono ponderate per importo. Clicca
+sul riepilogo per vedere il dettaglio per cliente, con debiti aperti e saldi.
+
+INVIO PREVENTIVI
+Apri un preventivo e premi Invia preventivo: i dati vengono salvati prima
+ di aprire la finestra di condivisione. Email e telefono vengono proposti
+ dall'anagrafica quando il contatto è univoco; puoi correggerli liberamente.
+Per WhatsApp inserisci il prefisso internazionale, per esempio +39.
+Controlla il messaggio con lavorazioni, quantità, prezzi, totale e note.
+Apri email avvia il programma di posta configurato; Apri WhatsApp apre
+WhatsApp. Completa l'invio nell'app scelta. Viene condiviso il testo del
+preventivo, senza allegato; lo stato del preventivo non cambia automaticamente.
+
+AGGIORNAMENTO EMAIL
+Il pulsante è ora Invia email: usa il servizio locale e l'account Gmail/Outlook
+configurato nelle Impostazioni, senza aprire il programma di posta.
+Le precedenti istruzioni Apri email sono sostituite da LEGGIMI-email.txt.
+
+AGGIORNAMENTO PREVENTIVO PDF
+Il preventivo viene generato come PDF con intestazione officina, cliente,
+veicolo, lavorazioni, quantità, imponibile, IVA e totale. Nell'editor scegli
+l'aliquota IVA e, facoltativamente, la data di validità. I prezzi inseriti
+restano IVA inclusa; il PDF espone separatamente imponibile e IVA.
+«Scarica preventivo PDF» permette di ottenere il documento in ogni momento.
+Nell'invio automatico il PDF viene allegato alla mail Gmail/Outlook.
+Nell'invio manuale viene scaricato il PDF e aperta la webmail del servizio
+scelto nelle Impostazioni: Gmail apre Gmail, Outlook apre Outlook sul web.
+Aggiungi il PDF scaricato alla bozza e completa l'invio. I collegamenti
+alle webmail non consentono di aggiungere automaticamente allegati locali.
+Il testo nella finestra è soltanto il messaggio di accompagnamento.
+Queste istruzioni sostituiscono le precedenti indicazioni «senza allegato».
+
+LOGO E OGGETTO EMAIL
+Il PDF usa il logo caricato nelle Impostazioni, mantenendone le proporzioni.
+L'oggetto della mail è «preventivo (ragione sociale dell'officina)».
+Con account collegato il PDF è allegato automaticamente. L'apertura di una
+bozza webmail senza autorizzazione richiede invece di allegarlo manualmente.

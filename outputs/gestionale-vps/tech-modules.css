@@ -1,0 +1,366 @@
+/* Secondary workshop surfaces. Screen-only: printed documents keep their own theme. */
+@media screen {
+  body.tech-theme .toolbar {
+    gap: 12px;
+    padding: 13px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+
+  body.tech-theme :is(.toolbar input, .toolbar select, .agenda-switcher input,
+    .sales-calendar-head input, .compare-picker, #compareCustomDates input,
+    #salesCustomDates input, .acceptance-line input, .extra-parking-work input,
+    .appointment-work-line input, .ledger-edit, .ledger-profit-line input,
+    .analysis-filter select, .analysis-inline-range input, .vehicle-selection-search,
+    .scan-actions input, .inv-grid input, .inv-grid select, .inv-lines input,
+    .inv-lines select, #invCustomerSearch, #invWorks, #invWorkDate,
+    #deliveryNoteModal input:not([type="file"]), #deliveryNoteModal select,
+    #deliveryNoteModal textarea, #revisionDueRows input, #incomePeriod, #salesRange) {
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-family: Manrope, Arial, sans-serif;
+    color-scheme: dark;
+  }
+
+  body.tech-theme :is(.acceptance-line input, .extra-parking-work input,
+    .appointment-work-line input, #deliveryNoteModal input:not([type="file"]),
+    #deliveryNoteModal select, #deliveryNoteModal textarea,
+    #invWorks, #invWorkDate, #incomePeriod, #salesRange) {
+    padding: 10px 12px;
+  }
+
+  body.tech-theme :is(.toolbar input, .toolbar select, .agenda-switcher input,
+    .sales-calendar-head input, .compare-picker, #compareCustomDates input,
+    #salesCustomDates input, .acceptance-line input, .extra-parking-work input,
+    .appointment-work-line input, .ledger-edit, .ledger-profit-line input,
+    .analysis-filter select, .analysis-inline-range input, .vehicle-selection-search,
+    .scan-actions input, .inv-grid input, .inv-grid select, .inv-lines input,
+    .inv-lines select, #invCustomerSearch, #invWorks, #invWorkDate,
+    #deliveryNoteModal input:not([type="file"]), #deliveryNoteModal select,
+    #deliveryNoteModal textarea, #revisionDueRows input):focus-visible {
+    border-color: var(--accent);
+    outline: 2px solid rgb(100 216 239 / 22%);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  body.tech-theme :is(.toolbar input, .acceptance-line input, .extra-parking-work input,
+    .appointment-work-line input, .vehicle-selection-search,
+    .scan-actions input, .inv-grid input, #invCustomerSearch)::placeholder {
+    color: var(--muted);
+    opacity: .8;
+  }
+
+  body.tech-theme :is(.agenda-day-label, .customer-open, .compare-control,
+    .analysis-summary, .ledger-totals td:first-child) { color: var(--accent); }
+
+  body.tech-theme .customer-open {
+    font-size: 13px;
+    text-decoration-color: rgb(100 216 239 / 30%);
+    text-underline-offset: 4px;
+  }
+
+  body.tech-theme .customer-open:hover { text-decoration-color: var(--accent); }
+
+  body.tech-theme :is(.agenda-switcher button, .sales-calendar-head button,
+    .personal-access-edit, .qty-adjust button, .ledger-profit-trigger) {
+    border-color: var(--line);
+    border-radius: 9px;
+    color: var(--ink);
+    background: var(--surface-raised);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 3%);
+  }
+
+  body.tech-theme :is(.agenda-switcher button, .sales-calendar-head button,
+    .personal-access-edit, .qty-adjust button, .ledger-profit-trigger):hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #213341;
+  }
+
+  body.tech-theme :is(.agenda-switcher button, .sales-calendar-head button,
+    .personal-access-edit, .qty-adjust button, .ledger-profit-trigger):focus-visible {
+    border-color: var(--accent);
+    outline: 2px solid rgb(100 216 239 / 35%);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  body.tech-theme .agenda-switcher { gap: 10px; }
+  body.tech-theme .agenda-day-label { margin-bottom: 14px; font-size: 12px; }
+  body.tech-theme .agenda-switcher button { min-width: 38px; min-height: 38px; }
+  body.tech-theme #agendaRows tr[data-acceptance-row]:hover { background: rgb(100 216 239 / 5%); }
+
+  body.tech-theme :is(.status-select, .parking-status) {
+    background: #173744;
+    color: #91e5f5;
+    border: 1px solid #285566;
+    border-radius: 8px;
+    min-height: 30px;
+    color-scheme: dark;
+  }
+
+  body.tech-theme :is(.status-select.status-working, .parking-status.working) {
+    background: #183c33;
+    color: var(--success);
+    border-color: #2a5848;
+  }
+
+  body.tech-theme :is(.status-select.status-waiting, .parking-status.waiting) {
+    background: #3d2e22;
+    color: var(--orange);
+    border-color: #654830;
+  }
+
+  body.tech-theme :is(.status-select, .parking-status):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  body.tech-theme :is(.work-input, .amount-input) {
+    color: var(--ink);
+    border-color: transparent;
+    background: transparent;
+  }
+
+  body.tech-theme :is(.work-input, .amount-input):focus {
+    color: var(--ink);
+    background: var(--paper);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgb(100 216 239 / 12%);
+  }
+
+  body.tech-theme .amount-input[readonly] {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  body.tech-theme .parking-section { margin-top: 26px; }
+  body.tech-theme .parking-head { padding-bottom: 8px; }
+  body.tech-theme .parking-row { border-color: var(--line); padding-top: 17px; padding-bottom: 17px; }
+  body.tech-theme .parking-row:hover { background: rgb(100 216 239 / 3%); }
+  body.tech-theme .parking-total b { color: var(--muted); letter-spacing: .6px; }
+  body.tech-theme :is(.parking-total strong, .price-cell, .acceptance-total span,
+    .ledger-total-value, .ledger-profit-total, .inv-total, .income-total,
+    .sales-day-total, .stock-total b) { font-variant-numeric: tabular-nums; }
+
+  body.tech-theme :is(.agenda-delete, .parking-remove, .line-remove,
+    .extra-parking-work button) {
+    background: #3b2829;
+    color: #ffa89a;
+    border: 1px solid #583737;
+    border-radius: 8px;
+  }
+
+  body.tech-theme :is(.agenda-delete, .parking-remove, .line-remove,
+    .extra-parking-work button):hover {
+    background: #533235;
+    color: #ffd0c8;
+    border-color: #935252;
+  }
+
+  body.tech-theme .acceptance-meta {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 16px;
+    border-radius: 12px;
+    line-height: 1.7;
+  }
+  body.tech-theme .acceptance-meta b { color: var(--muted); letter-spacing: .6px; }
+  body.tech-theme .acceptance-total { border-top: 1px solid var(--line); padding-top: 18px; }
+  body.tech-theme .acceptance-total span { color: var(--accent); }
+  body.tech-theme .appointment-work-line label { color: var(--muted); }
+
+  body.tech-theme .stock-quick-filter {
+    background: var(--surface);
+    border-color: var(--line);
+    border-radius: 15px;
+    min-height: 110px;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 3%);
+  }
+  body.tech-theme .stock-quick-filter:hover {
+    background: var(--surface-raised);
+    border-color: #487180;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 14%);
+  }
+  body.tech-theme .stock-quick-filter.is-active {
+    background: #17303b;
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px rgb(100 216 239 / 12%);
+  }
+  body.tech-theme :is(.stock-quick-filter svg, .stock-quick-filter.is-active svg) { color: var(--accent); }
+  body.tech-theme .stock-quick-filter:focus-visible { outline-color: var(--accent); }
+  body.tech-theme .stock-filter-art { opacity: .09; }
+  body.tech-theme .stock-total {
+    background: #17312e;
+    color: var(--success);
+    border: 1px solid #2b5046;
+    border-radius: 10px;
+    padding: 11px 14px;
+  }
+  body.tech-theme .qty-adjust button { width: 27px; height: 27px; }
+  body.tech-theme .scan-panel { background: var(--paper); border-color: #3c5565; }
+  body.tech-theme .scan-video { background: #080d14; border: 1px solid var(--line); }
+
+  body.tech-theme .ledger-edit { padding: 8px; }
+  body.tech-theme .ledger-profit-trigger { padding: 8px 10px; }
+  body.tech-theme .ledger-work-trigger:hover { text-decoration-color: var(--accent); }
+  body.tech-theme .ledger-work-trigger:focus-visible { outline-color: var(--accent); }
+  body.tech-theme .ledger-totals td { background: rgb(100 216 239 / 4%); padding-top: 18px; }
+  body.tech-theme #ledgerTotal { color: var(--accent); font-variant-numeric: tabular-nums; }
+  body.tech-theme .ledger-profit-total { color: var(--accent); padding-top: 15px; }
+  body.tech-theme .ledger-profit-line { padding-top: 12px; }
+
+  body.tech-theme .invoice-summary {
+    background: var(--surface);
+    border-color: var(--line);
+    border-radius: 15px;
+  }
+  body.tech-theme .invoice-months { gap: 8px; padding-bottom: 14px; }
+  body.tech-theme .invoice-months button { border: 1px solid var(--line); border-radius: 11px; min-height: 86px; }
+  body.tech-theme .invoice-months button span { opacity: .78; }
+  body.tech-theme .invoice-archive-table th {
+    background: var(--paper);
+    color: var(--muted);
+    letter-spacing: .8px;
+    font-size: 10px;
+  }
+  body.tech-theme .invoice-archive-table tbody tr:nth-child(odd) { background: rgb(255 255 255 / 2%); }
+  body.tech-theme .invoice-archive-table tbody tr:hover { background: rgb(100 216 239 / 5%); }
+  body.tech-theme .invoice-archive-table td { font-size: 12px; }
+  body.tech-theme .inv-grid { gap: 16px; }
+  body.tech-theme .inv-grid label { color: var(--muted); font-size: 11px; font-weight: 600; gap: 8px; }
+  body.tech-theme .inv-lines th { color: var(--muted); font-size: 10px; padding-bottom: 12px; }
+  body.tech-theme .inv-lines td { padding-top: 9px; padding-bottom: 9px; border-bottom: 1px solid var(--line); }
+  body.tech-theme .inv-total { color: var(--accent); padding: 18px 0; margin-right: 0; border-top: 1px solid var(--line); }
+  body.tech-theme .inv-error { color: #ffb6a9; }
+  body.tech-theme .inv-help { line-height: 1.7; }
+  body.tech-theme #invEditor h3 { margin-top: 26px; font-size: 14px; }
+  body.tech-theme #invoiceApp details > summary { color: var(--ink); cursor: pointer; font-weight: 700; }
+  body.tech-theme #invoiceApp details > summary::marker { color: var(--accent); }
+
+  /* These colors are assigned inline by the existing invoice autocomplete. */
+  body.tech-theme #invCustomerResults {
+    background: var(--surface-raised) !important;
+    border-color: #3d5165 !important;
+    box-shadow: 0 16px 38px rgb(0 0 0 / 38%) !important;
+  }
+  body.tech-theme #invCustomerResults button {
+    color: var(--ink) !important;
+    background: var(--surface-raised) !important;
+    border-bottom-color: var(--line) !important;
+    font-family: Manrope, Arial, sans-serif;
+    font-size: 12px;
+  }
+  body.tech-theme #invCustomerResults button:hover,
+  body.tech-theme #invCustomerResults button:focus-visible {
+    color: var(--accent) !important;
+    background: #223746 !important;
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  body.tech-theme :is(.appointment-customer-options, #parkingCustomerMatches) {
+    background: var(--surface-raised);
+    border-color: #3d5165;
+    border-radius: 11px;
+    box-shadow: 0 16px 38px rgb(0 0 0 / 35%);
+  }
+  body.tech-theme :is(.appointment-customer-option, #parkingCustomerMatches button,
+    .vehicle-choice) { background: var(--surface-raised); color: var(--ink); }
+  body.tech-theme :is(.appointment-customer-option:hover, .appointment-customer-option:focus,
+    .appointment-customer-option[aria-selected="true"], #parkingCustomerMatches button:hover,
+    #parkingCustomerMatches button[aria-selected="true"], .vehicle-choice:hover,
+    .vehicle-choice:focus) {
+    color: var(--accent);
+    background: #223746;
+    border-color: var(--accent);
+  }
+  body.tech-theme #parkingCustomerMatches button:focus-visible { outline-color: var(--accent); }
+  body.tech-theme .vehicle-choice { padding: 15px; border-radius: 12px; }
+
+  body.tech-theme :is(.analysis-kpi, .analysis-extreme) {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  body.tech-theme .analysis-kpi strong { color: var(--ink); font-size: 29px; font-variant-numeric: tabular-nums; }
+  body.tech-theme .analysis-card-head { margin-bottom: 20px; }
+  body.tech-theme .analysis-card-head p { line-height: 1.65; }
+  body.tech-theme .analysis-filter > label,
+  body.tech-theme .analysis-inline-range label { letter-spacing: .6px; }
+  body.tech-theme .analysis-pie-toggle:focus-visible { outline-color: var(--accent); }
+  body.tech-theme .analysis-pie circle[fill="#fff"] { fill: var(--surface); }
+  body.tech-theme .analysis-pie circle[fill="#edf2ef"] { fill: var(--line); }
+  body.tech-theme .analysis-pie path[fill="#143d32"] { fill: #58c5a5; }
+  body.tech-theme .analysis-pie path[fill="#d9fc52"] { fill: #8bdce9; }
+  body.tech-theme .analysis-pie path[fill="#5ed4e4"] { fill: #90a7f5; }
+  body.tech-theme .analysis-pie path[fill="#ff7547"] { fill: var(--orange); }
+  body.tech-theme .analysis-swatch[style*="#143d32"] { background: #58c5a5 !important; }
+  body.tech-theme .analysis-swatch[style*="#d9fc52"] { background: #8bdce9 !important; }
+  body.tech-theme .analysis-swatch[style*="#5ed4e4"] { background: #90a7f5 !important; }
+  body.tech-theme .analysis-swatch[style*="#ff7547"] { background: var(--orange) !important; }
+  body.tech-theme .analysis-legend-row { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  body.tech-theme .analysis-legend-row:last-child { border-bottom: 0; }
+  body.tech-theme .analysis-period-bar i { background: linear-gradient(90deg, #397d90, var(--accent)); }
+  body.tech-theme .analysis-measures li { padding-top: 12px; }
+  #salesShowMore { margin-top: 12px; }
+  #analysisTyreMeasures { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 18px; }
+  #analysisTyreMeasures li { column-gap: 6px; min-width: 0; }
+  #analysisTyreMeasures li:nth-child(5n + 1) { border-top: 0; padding-top: 0; }
+  #analysisTyreMeasures b { overflow-wrap: anywhere; }
+  #analysisTyreMeasures span { font-size: 11px; text-align: right; }
+  .analysis-ranked-periods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .analysis-ranked-periods section { min-width: 0; }
+  .analysis-ranked-periods h3 { margin: 0 0 14px; font-size: 12px; }
+  .analysis-ranked-periods .analysis-period-bar { grid-template-columns: minmax(95px, 1fr) minmax(20px, 1fr) auto; }
+  #analysis .analysis-period-high :is(h3, .analysis-period-bar span) { color: #16804c; }
+  #analysis .analysis-period-low :is(h3, .analysis-period-bar span) { color: #c73939; }
+  #analysis .analysis-period-high .analysis-period-bar i { background: #16804c; }
+  #analysis .analysis-period-low .analysis-period-bar i { background: #c73939; }
+  body.tech-theme #analysis .analysis-period-high :is(h3, .analysis-period-bar span) { color: #68dca1; }
+  body.tech-theme #analysis .analysis-period-low :is(h3, .analysis-period-bar span) { color: #ff8686; }
+  body.tech-theme #analysis .analysis-period-high .analysis-period-bar i { background: #68dca1; }
+  body.tech-theme #analysis .analysis-period-low .analysis-period-bar i { background: #ff8686; }
+  @media (max-width: 620px) {
+    #analysisTyreMeasures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; }
+    #analysisTyreMeasures li:nth-child(6) { border-top: 1px solid var(--line); padding-top: 12px; }
+    .analysis-ranked-periods { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  body.tech-theme .income-chart text { fill: var(--muted); }
+  body.tech-theme .income-chart .value { fill: var(--ink); }
+  body.tech-theme .income-chart :is(.axis, .grid) { stroke: var(--line); }
+  body.tech-theme .income-chart rect[fill="#143d32"] { fill: #58c5a5; }
+  body.tech-theme .income-chart rect[fill="#d9fc52"] { fill: #8bdce9; }
+  body.tech-theme .income-chart rect[fill="#5ed4e4"] { fill: #90a7f5; }
+  body.tech-theme .income-chart rect[fill="#ff7547"] { fill: var(--orange); }
+  body.tech-theme .compare-result { background: #17312e; color: var(--success); border: 1px solid #2b5046; }
+  body.tech-theme .income-table td { padding-top: 13px; padding-bottom: 13px; }
+
+  body.tech-theme .detail-row { background: var(--paper); border-color: var(--line); padding: 15px; border-radius: 11px; }
+  body.tech-theme .detail-row b { margin-bottom: 7px; }
+  body.tech-theme .detail-row span { color: var(--muted); }
+  body.tech-theme .logo-upload { background: var(--paper); border-color: #3c5565; padding: 14px; }
+  body.tech-theme .logo-preview { background: var(--surface-raised); border-color: var(--line); }
+  body.tech-theme .color-settings { padding-top: 22px; }
+  body.tech-theme .color-option input { border-color: var(--surface-raised); box-shadow: 0 0 0 1px #496073; }
+  body.tech-theme #deliveryNoteModal details { padding: 14px 0; border-top: 1px solid var(--line); margin-top: 14px; }
+  body.tech-theme #deliveryNoteModal summary { color: var(--accent); font-weight: 700; cursor: pointer; }
+  body.tech-theme #deliveryNoteModal textarea { margin: 12px 0; resize: vertical; }
+  body.tech-theme #deliveryNoteModal .form-grid > label { color: var(--muted); font-size: 11px; line-height: 1.8; }
+  body.tech-theme #deliveryNoteModal .form-grid > label input { width: 100%; }
+
+  /* Application scripts control visibility through hidden attributes/classes. */
+  body.tech-theme .analysis-inline-range[hidden],
+  body.tech-theme .appointment-customer-options[hidden],
+  body.tech-theme #parkingCustomerMatches[hidden],
+  body.tech-theme #invCustomerResults[hidden],
+  body.tech-theme #invEditor[hidden],
+  body.tech-theme .parking-row[hidden] { display: none !important; }
+}

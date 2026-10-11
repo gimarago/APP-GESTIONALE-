@@ -1,0 +1,37 @@
+GESTIONALE OFFICINA - VERSIONE IN RETE
+
+PER PROVARLO SUBITO SUL PC WINDOWS
+Estrai lo ZIP e apri "Avvia gestionale sul PC.bat". Il primo avvio ti guida
+nella creazione dell'account. Vedi AVVIO-SUL-PC.txt per i dettagli.
+
+1. Leggi README-VPS.md: contiene installazione completa su VPS Linux con
+   Docker/Caddy, dominio HTTPS, creazione degli account e backup.
+2. Prima di chiudere il vecchio gestionale, esporta i dati seguendo
+   deploy/MIGRAZIONE.md. Non basta copiare il file HTML.
+3. Importa la copia nel nuovo server vuoto come amministratore e controlla
+   clienti, appuntamenti, magazzino, documenti, impostazioni e saldi.
+4. Su PC, Android e iPhone apri lo stesso indirizzo HTTPS dell'officina.
+
+MODIFICA CONTEMPORANEA
+Ogni operatore puo lavorare subito dopo l'accesso, senza richiedere permessi
+per ogni modifica. I salvataggi sono automatici e riguardano le sole voci
+modificate. Attendi "Salvato sul VPS" nella barra superiore prima di chiudere.
+Se due persone modificano la stessa voce, il secondo salvataggio viene
+fermato e conservato in una bozza: confrontalo con la versione aggiornata.
+Gli altri operatori possono continuare. Vedi README-VPS.md per i controlli
+su operazioni collegate, magazzino e numerazione fatture.
+
+IN CASO DI PROBLEMI DI RETE
+Le modifiche si sospendono. "Scarica bozza" conserva le copie da confrontare;
+"Ricarica dati server" recupera la versione confermata. Le bozze non vengono
+applicate sopra i dati piu recenti. Scaricale prima di chiudere la scheda.
+
+STATO DELLA CONSEGNA
+Sorgenti, configurazione, test, migrazione e backup sono predisposti.
+Il pacchetto non e ancora pubblicato e non contiene password predefinite.
+Configurare VPS e dominio ed eseguire il collaudo operativo descritto
+nel README prima di utilizzare dati aziendali.
+
+VERIFICHE-RETE.md riporta i test eseguiti e i controlli ancora necessari.
+I vecchi LEGGIMI, BAT, HTA e script Windows sono materiale della versione
+locale: l'accesso condiviso avviene tramite il dominio HTTPS.

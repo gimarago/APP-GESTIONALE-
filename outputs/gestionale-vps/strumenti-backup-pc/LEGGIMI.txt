@@ -1,0 +1,64 @@
+DOWNLOAD AUTOMATICO DEI BACKUP OFFICINA SUL PC WINDOWS
+
+Il backup giornaliero gia attivo sul VPS continua a funzionare come prima.
+Questo strumento copia sul PC tutte le coppie SQLite + SHA256 disponibili che
+non sono ancora state scaricate. Controlla il contenuto prima di pubblicare la
+copia locale. Non cancella backup sul VPS o sul PC e non importa nulla nell'app.
+
+CONFIGURAZIONE UNA TANTUM, SUL PC
+
+1. Estrai l'intera cartella dello ZIP sul PC, ad esempio in Download.
+2. Apri "Configura download automatico.bat" con un doppio clic.
+3. Se e la prima connessione SSH, confronta l'impronta mostrata con quella
+   ottenuta nella console del VPS con:
+   ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub
+4. Inserisci la password SSH di root quando viene richiesta. Mentre la scrivi
+   non si vedono caratteri: e normale. La password non viene salvata.
+5. Attendi il primo download e il messaggio "Attivato".
+
+Impostazioni preparate:
+- Server: api.magomme.it, SSH porta 22, backup in /opt/officina/backups.
+- Cartella PC: Documenti\BackupOfficina (il percorso Documenti del tuo utente).
+- Download: alle 09:00, ora del PC, e un minuto dopo l'accesso a Windows.
+- PC acceso, Internet disponibile e utente collegato a Windows.
+- Se il PC e spento, recupera le copie ancora presenti sul VPS al prossimo accesso.
+- In caso di errore, tre nuovi tentativi a intervalli di 15 minuti.
+
+L'attivita e visibile in Utilita di pianificazione con il nome:
+Officina - Download backup VPS
+Il file download.log nella cartella dei backup contiene l'esito dei download.
+La configurazione e i programmi sono conservati in:
+%LOCALAPPDATA%\OfficinaBackup
+
+La chiave privata dedicata rimane sul PC. Non ha una passphrase per consentire
+il funzionamento automatico: la cartella della chiave e accessibile solo al tuo
+utente Windows, agli amministratori del PC e al sistema. Sul VPS la chiave
+pubblica autorizza soltanto il comando che legge i backup: non consente una
+console SSH, modifiche, inoltri di rete o lettura degli altri file del server.
+Lo script server e in /usr/local/libexec/officina-backup-download; la chiave
+limitata viene aggiunta a /root/.ssh/authorized_keys senza rimuovere altre chiavi.
+I permessi dei backup e il servizio di backup giornaliero non vengono cambiati.
+
+Se il VPS non permette accesso root con chiave pubblica o il PC blocca la
+registrazione dell'attivita, la configurazione termina con un errore. Non
+modificare globalmente SSH per risolvere: conserva il messaggio per la diagnosi.
+
+CAMBIARE CARTELLA O ORARIO
+
+Da PowerShell SUL PC, nella cartella estratta:
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Configura-backup.ps1 -Time "10:00" -Destination "D:\BackupOfficina"
+
+DISATTIVARE
+
+In Utilita di pianificazione, disabilita "Officina - Download backup VPS".
+Per revocare anche la chiave, dalla normale console VPS elimina soltanto la
+riga con commento officina-backup-pc che corrisponde a questo PC, in
+/root/.ssh/authorized_keys. Non cancellare l'intero file.
+
+Non e necessario aggiornare lo ZIP dell'app per installare questo strumento.
+Non e ancora configurato finche non esegui i passaggi sopra.
+
+Documentazione tecnica:
+https://man.openbsd.org/sshd.8
+https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset
+https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement

@@ -1,0 +1,25 @@
+OFFICINA — RESTYLING ELEGANTE E HI-TECH
+
+AVVIO
+Aprire officina-fatturazione.html nel browser mantenendo completa questa cartella, comprese le sottocartelle e i file CSS/JavaScript.
+
+STILE
+Interfaccia rinnovata con tema grafite, accenti ciano, maggiore gerarchia visiva e dettagli hi-tech. La cartella originale fornita è rimasta invariata.
+
+VERIFICHE
+Superati i controlli automatici esistenti: fatturazione (8), riconoscimento ricambi (18) e collegamento batterie al magazzino (11). Verificata senza errori la sintassi dei 38 file JavaScript/CJS originali e dello script inline HTML.
+Il restyling e il selettore temi sono separati dai moduli operativi.
+
+NOTA OPERATIVA SUI DATI
+Questa copia si apre da un percorso diverso. I dati già salvati nel browser non sono stati migrati automaticamente nel nuovo percorso.
+
+CONTROLLI DELL'INTERFACCIA
+Verificati nel browser: navigazione, apertura moduli, ricerca per cliente/targa, filtri magazzino e grafici. Controllate le dimensioni desktop, tablet (820 px) e telefono (390 px). Nessun errore JavaScript rilevato durante questi controlli.
+
+
+SCEGLI TEMA
+In Impostazioni > Stato del sistema > Aspetto dell’app, premi Scegli tema. Sono disponibili Grafite, Aurora e Classico chiaro, con anteprima. La scelta è immediata e viene ricordata nel browser, insieme ai colori personalizzati. Selezionare un tema ripristina i colori predefiniti di quel tema. La finestra si chiude con Chiudi o Esc.
+
+IDENTITÀ DELL'OFFICINA
+Marchio, gruppi di navigazione, riquadro La tua officina e piè di pagina sono disponibili anche in Classico chiaro. Le iniziali del riquadro seguono la ragione sociale (esempio: Officina Rossi SRL → OR); anche il nome nel piè di pagina si aggiorna.
+

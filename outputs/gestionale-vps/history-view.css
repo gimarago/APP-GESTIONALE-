@@ -1,0 +1,125 @@
+#historyModal .modal-card {
+  display:flex;
+  flex-direction:column;
+  width:min(720px,100%);
+  max-height:calc(100dvh - 36px);
+  overflow:hidden;
+}
+#historyModal #historyVehicle { display:none; }
+#historyModal .history-search-label {
+  display:block;
+  margin-bottom:7px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+}
+#historyWorkSearch {
+  width:100%;
+  min-height:42px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--paper);
+  color:var(--ink);
+  font:inherit;
+}
+#historyWorkSearch::placeholder { color:var(--muted); }
+#historyResultCount {
+  flex:none;
+  margin:9px 0 0!important;
+  color:var(--muted);
+  font-size:11px;
+}
+#historyContent {
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  align-content:start;
+  margin-top:12px;
+  padding:2px 5px 4px 2px;
+}
+#historyModal .modal-actions {
+  flex:none;
+  padding-top:14px;
+  margin-top:12px;
+  border-top:1px solid var(--line);
+}
+.history-job {
+  min-width:0;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--white);
+}
+.history-job-heading {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+}
+.history-job-heading-text { min-width:0; }
+.history-job-date {
+  display:block;
+  color:var(--ink);
+  font-size:13px;
+  line-height:1.4;
+}
+.history-job-vehicle {
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+.history-job-total {
+  flex:none;
+  color:var(--ink);
+  font-size:14px;
+  font-weight:800;
+  white-space:nowrap;
+}
+#historyModal .history-job-count {
+  margin:13px 0 4px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+.history-job-lines { display:grid; }
+.history-job-line {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:8px 0;
+  border-top:1px solid var(--line);
+  font-size:12px;
+  line-height:1.5;
+}
+.history-job-line.matches-query {
+  margin-inline:-7px;
+  padding-inline:7px;
+  border-radius:6px;
+  background:color-mix(in srgb,var(--lime) 13%,transparent);
+}
+.history-job-description { min-width:0; overflow-wrap:anywhere; }
+.history-job-amount { flex:none; font-weight:700; white-space:nowrap; }
+#historyModal .history-job-notes {
+  margin:10px 0 0;
+  padding-top:9px;
+  border-top:1px solid var(--line);
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+#historyModal .history-empty {
+  margin:0;
+  padding:22px 10px;
+  color:var(--muted);
+  text-align:center;
+}
+@media(max-width:600px) {
+  #historyModal .modal-card { max-height:calc(100dvh - 20px); }
+  .history-job { padding:13px; }
+  .history-job-heading { display:block; }
+  .history-job-total { margin-top:7px; }
+}

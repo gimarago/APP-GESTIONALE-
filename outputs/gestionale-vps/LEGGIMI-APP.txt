@@ -1,0 +1,37 @@
+OFFICINA — AVVIO
+
+Estrai lo ZIP e apri «Avvia Officina.bat».
+Con Node.js 22 o successivo installato, il servizio email viene avviato
+automaticamente in background e l'app si apre nel browser predefinito.
+Non è necessario avviare separatamente «Avvia servizio email.bat».
+Se l'app è già attiva su http://127.0.0.1:8770/ viene riutilizzato quell'indirizzo;
+altrimenti si apre http://localhost:8772/. Il browser conserva i dati per
+indirizzo e profilo: un'origine diversa ha un archivio distinto.
+Senza Node.js viene aperto il file HTML e resta disponibile l'invio manuale.
+
+EMAIL
+Configura Gmail/Outlook nelle Impostazioni per l'invio diretto (LEGGIMI-email.txt).
+Se il servizio non è attivo o l'account non è collegato, «Invia email» apre
+il programma di posta predefinito con destinatario, oggetto e testo già pronti.
+Completa l'invio nel programma di posta. Non viene inviato alcun messaggio
+all'avvio dell'app. Un errore dopo un tentativo automatico non provoca un
+secondo invio manuale: controlla prima la cartella Posta inviata.
+
+MAGAZZINO
+Aggiungi scorta include Soglia riordino e Avviso di riordino attivo. Il pulsante
+«+» sulla disponibilità apre il carico: inserisci quantità arrivata e costo
+pagato per unità. Il costo medio unitario viene ricalcolato in base alle
+quantità già presenti e a quelle in arrivo; per esempio, 10 unità a € 10 e 5
+unità a € 20 portano il costo medio a € 13,33. Se manca il costo delle scorte
+presenti, viene richiesto prima del calcolo. Il ricarico unitario resta distinto.
+Puoi attivare o disattivare l'avviso anche in Modifica scorta: la soglia
+viene conservata. Con avviso attivo, quantità <= soglia significa RIORDINO.
+Le nuove righe, anche importate, ricevono subito lo stato corretto.
+Le scorte prive di soglia usano il valore 5, con avviso attivo.
+Le modifiche al magazzino sono salvate nel browser e ripristinate alla riapertura.
+
+FATTURAZIONE LOCALE AUTONOMA
+Il flusso aggiornato è descritto in LEGGIMI-fatturazione.md.
+PDF con logo, numerazione annuale locale, XML, note di credito, scadenze,
+registro CSV e backup sono disponibili senza un altro programma di fatturazione.
+Nessun documento viene trasmesso al Sistema di Interscambio.

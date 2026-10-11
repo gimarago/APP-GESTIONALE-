@@ -1,0 +1,39 @@
+[package]
+name = "officina-app"
+version = "1.0.3"
+description = "Gestionale M.A. Gomme collegato al VPS"
+authors = ["M.A. Gomme"]
+edition = "2021"
+rust-version = "1.85"
+
+[lib]
+name = "officina_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-officina-documents = { path = "../native-documents" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-dialog = "2"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+tauri-plugin-updater = "=2.13.3"
+reqwest-updates = { package = "reqwest", version = "0.13", default-features = false }
+tokio = { version = "1", features = ["sync", "time", "macros"] }
+
+[dev-dependencies]
+tauri = { version = "2", features = ["test"] }
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+panic = "abort"

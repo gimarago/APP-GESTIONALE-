@@ -1,0 +1,65 @@
+# Opt-in only AFTER accreditation/collaudo. Never add this override to a normal
+# install before supplying all the channel credentials documented in SDI-DIRETTO.md.
+# docker compose -f compose.yaml -f compose.sdi.yaml up -d --build
+services:
+  app:
+    environment:
+      OFFICINA_DOMAIN: ${OFFICINA_DOMAIN:?Set application hostname distinct from SDI_DOMAIN}
+      SDI_ENABLED: ${SDI_ENABLED:-false}
+      SDI_ENVIRONMENT: ${SDI_ENVIRONMENT:-test}
+      SDI_ACCREDITATION_REFERENCE: ${SDI_ACCREDITATION_REFERENCE:?Set channel agreement reference}
+      SDI_PRODUCTION_APPROVED: ${SDI_PRODUCTION_APPROVED:-false}
+      SHOP_VAT: ${SHOP_VAT:?Set company VAT for this channel}
+      SDI_DOMAIN: ${SDI_DOMAIN:?Set accredited callback hostname}
+      SDI_ENDPOINT: ${SDI_ENDPOINT:?Copy endpoint from this environment channel agreement}
+      SDI_ENDPOINT_HOST: ${SDI_ENDPOINT_HOST:?Copy exact endpoint hostname}
+      SDI_PEER_FINGERPRINTS: ${SDI_PEER_FINGERPRINTS:?Set approved SdI client SHA256 fingerprints}
+      SDI_GATEWAY_TOKEN: ${SDI_GATEWAY_TOKEN:?Set random private gateway token}
+      SDI_CLIENT_CERT_PATH: /run/sdi/client-cert.pem
+      SDI_CLIENT_KEY_PATH: /run/sdi/client-key.pem
+      SDI_REMOTE_CA_PATH: /run/sdi/remote-ca.pem
+      SDI_TIMEOUT_MS: ${SDI_TIMEOUT_MS:-30000}
+    volumes:
+      - type: bind
+        source: ${SDI_SECRETS_DIR:?Set absolute external secrets directory}/client-cert.pem
+        target: /run/sdi/client-cert.pem
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SDI_SECRETS_DIR}/client-key.pem
+        target: /run/sdi/client-key.pem
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SDI_SECRETS_DIR}/remote-ca.pem
+        target: /run/sdi/remote-ca.pem
+        read_only: true
+        bind:
+          create_host_path: false
+  caddy:
+    environment:
+      SDI_DOMAIN: ${SDI_DOMAIN:?Set accredited callback hostname}
+      SDI_GATEWAY_TOKEN: ${SDI_GATEWAY_TOKEN:?Set random private gateway token}
+    volumes:
+      # Compose merges volume entries by destination, replacing the base file.
+      - ./deploy/Caddyfile.sdi:/etc/caddy/Caddyfile:ro
+      - type: bind
+        source: ${SDI_SECRETS_DIR}/server-cert.pem
+        target: /run/sdi/server-cert.pem
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SDI_SECRETS_DIR}/server-key.pem
+        target: /run/sdi/server-key.pem
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SDI_SECRETS_DIR}/peer-ca.pem
+        target: /run/sdi/peer-ca.pem
+        read_only: true
+        bind:
+          create_host_path: false

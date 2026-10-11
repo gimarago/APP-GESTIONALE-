@@ -1,0 +1,40 @@
+MODULI
+La nuova voce Moduli, sotto Post-it, contiene:
+- Rifiuto di interventi raccomandati
+- Fornitura propria di ricambi
+- Scarico responsabilità per montaggio di pneumatico non conforme
+
+Ogni modello permette di compilare cliente, targa, veicolo, data, km,
+operatore, circostanze, rischi, decisione ed esito, con dichiarazione modificabile.
+Salva modulo conserva i dati nel browser. Apri riporta il modulo nell'editor.
+Stampa / salva PDF apre una copia impaginata con gli spazi per le firme;
+usa il pulsante Stampa nella nuova scheda e scegli stampante o Salva come PDF.
+La stampa da sola non salva il modulo nell'archivio. Le firme sono su carta.
+
+I testi sono modelli da adattare e sottoporre a verifica professionale prima
+ dell'uso. Non garantiscono un esonero di responsabilità. Il modulo sui
+pneumatici documenta non conformità e informazioni ricevute, senza attestare
+l'idoneità alla circolazione o rendere consentito un montaggio non conforme.
+Riferimenti consultati:
+Art. 1229 Codice civile:
+https://def.giustiziatributaria.gov.it/DocTribFrontend/executePrintArticolo.do?articolo=Articolo+1229&codiceOrdinamento=0000000000012290000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&id=%7B9E93F1BE-06AE-4F24-8E9D-B838F7E0C2E6%7D
+Art. 78 Codice della strada: https://aci.gov.it/codice-della-strada/art-78/
+Art. 79 Codice della strada: https://www.aci.it/fileadmin/cds/art-79.php
+
+CODICE FISCALE E RISCHI PNEUMATICI
+Tutti i moduli includono il codice fiscale del cliente, salvato nell'archivio
+e riportato nella copia stampabile.
+Il modulo pneumatici non conformi include il testo sui rischi fornito
+dall'utente. Il testo viene aggiunto anche quando si riaprono moduli esistenti,
+conservando eventuali note precedenti, ed è incluso nel salvataggio e stampa.
+Il testo fornito non costituisce una verifica degli importi delle sanzioni
+o delle condizioni assicurative applicabili al singolo caso.
+
+INFORMATIVA PRIVACY
+Il modulo Informativa privacy riprende il testo di Informativa Privacy 1.docx
+fornito dall'utente. Include cliente, codice fiscale, data e luogo.
+Le tre scelte di consenso sono indipendenti: Acconsento, Non acconsento oppure
+Da compilare alla firma (predefinito). Nessun consenso viene preselezionato.
+Il testo completo si consulta con Leggi l'informativa completa.
+Il salvataggio conserva dati, scelte e testo dell'informativa nell'archivio Moduli.
+Stampa / salva PDF include il testo integrale e uno spazio firma per ogni scelta.

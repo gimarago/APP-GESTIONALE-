@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-client-ready"
+description = "Enables the client_ready command without any pre-configured scope."
+commands.allow = ["client_ready"]
+
+[[permission]]
+identifier = "deny-client-ready"
+description = "Denies the client_ready command without any pre-configured scope."
+commands.deny = ["client_ready"]

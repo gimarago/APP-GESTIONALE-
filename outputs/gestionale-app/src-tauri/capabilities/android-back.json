@@ -1,0 +1,10 @@
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "android-back",
+  "description": "Gestisce il tasto Indietro Android senza uscire dal gestionale durante un salvataggio.",
+  "platforms": ["android"],
+  "local": false,
+  "remote": {"urls": ["https://api.magomme.it/*"]},
+  "windows": ["main"],
+  "permissions": ["core:app:allow-register-listener", "core:app:allow-remove-listener", "allow-close-client"]
+}

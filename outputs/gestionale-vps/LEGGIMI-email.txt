@@ -1,0 +1,75 @@
+INVIO DIRETTO EMAIL — GMAIL E OUTLOOK
+
+L'app include un servizio locale per l'invio diretto. Prima del primo invio
+è necessaria una registrazione OAuth del proprio progetto Google/Microsoft:
+la sola indicazione dell'indirizzo email non autorizza l'accesso alla casella.
+Nessun account è già collegato e nessuna email viene inviata all'avvio.
+
+1. Installa Node.js 22 o successivo da https://nodejs.org se non presente.
+2. Esegui «Avvia servizio email.bat» e mantieni aperta la finestra.
+3. Usa il browser abituale su http://127.0.0.1:8770/ (se già in uso) oppure
+   http://localhost:8772/. Il servizio serve anche l'app su questa seconda URL.
+   Ogni origine ha un archivio locale diverso: mantenere l'indirizzo precedente
+   evita di cambiare archivio. I dati non vengono trasferiti automaticamente.
+   Per l'accesso Google/Microsoft usa un browser normale, non la finestra HTA.
+4. In Impostazioni → Invio email preventivi scegli servizio e indirizzo mittente.
+5. Apri Configurazione iniziale del collegamento e inserisci il Client ID OAuth.
+   Inserisci il Client secret quando richiesto dalla registrazione web.
+6. Premi Collega account e autorizza ESATTAMENTE l'indirizzo indicato.
+   Torna nell'app e premi Verifica collegamento.
+7. Nel preventivo premi Invia preventivo, controlla destinatario e messaggio,
+   quindi Invia email. Questo pulsante spedisce direttamente, senza aprire
+   un'altra bozza e senza una seconda conferma. WhatsApp resta manuale.
+
+REGISTRAZIONE GMAIL
+Nel progetto Google Cloud abilita Gmail API, configura la schermata consenso
+(con il mittente tra gli utenti di test se il progetto è in test) e crea
+un client OAuth di tipo Applicazione web. Registra esattamente questo URI:
+http://localhost:8772/oauth/callback
+Usa Client ID e Client secret di quella registrazione. Sono richiesti
+openid, email e gmail.send; non viene richiesto l'accesso alle email ricevute.
+La pubblicazione dell'app oltre agli utenti di test può richiedere verifiche
+Google. Segui le indicazioni mostrate nella console del tuo progetto.
+https://developers.google.com/identity/protocols/oauth2/web-server
+https://developers.google.com/workspace/gmail/api/guides/sending
+
+REGISTRAZIONE OUTLOOK / MICROSOFT 365
+In Microsoft Entra registra un'app con account aziendali e personali Microsoft.
+Aggiungi piattaforma Web e URI http://localhost:8772/oauth/callback.
+Configura autorizzazioni delegate User.Read e Mail.Send e un Client secret.
+Usa Application (client) ID e il VALORE del secret nelle Impostazioni.
+Le politiche aziendali potrebbero richiedere il consenso dell'amministratore.
+https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow
+https://learn.microsoft.com/en-us/graph/api/user-sendmail
+
+CUSTODIA E RISULTATI
+Provider, mittente e Client ID sono salvati localmente; il servizio conserva
+la configurazione in %LOCALAPPDATA%\Officina\email-settings.json.
+Client secret e token restano solo nella memoria del servizio, mai nel file
+HTML o localStorage. Dopo il riavvio reinserisci il secret e ricollega l'account.
+Non inserire la password della casella. Scollega cancella la sessione locale;
+per revocare anche il consenso usa le impostazioni Google/Microsoft.
+«Email accettata» significa che il provider ha accettato l'invio, non che il
+destinatario l'abbia ricevuta o letta. In caso di esito incerto controlla la
+Posta inviata prima di riaprire il preventivo e riprovare. I doppi clic e le
+ripetizioni della stessa richiesta sono bloccati durante la sessione locale.
+Viene inviato il testo del preventivo, senza PDF allegato.
+
+VERIFICA ESEGUITA
+Test locali dei flussi OAuth e invio con risposte simulate di entrambi i
+provider, validazione indirizzi, protezione origine, duplicati e scollegamento.
+L'invio reale va verificato dopo la registrazione e il collegamento dell'account.
+
+AGGIORNAMENTO AVVIO E INVIO MANUALE
+Aprendo Avvia Officina.bat il servizio parte in background se Node.js è
+installato. Non occorre lanciare il file email.bat separatamente.
+Se il servizio è spento o l'account non è collegato, Invia email apre il
+programma di posta con il messaggio pronto. In caso di errore dopo un
+invio automatico non viene avviato un secondo invio: controlla Posta inviata.
+
+ALLEGATO PDF E SCELTA WEBMAIL
+L'invio automatico include il preventivo PDF come allegato.
+Se non configurato, il documento viene scaricato e viene aperta la webmail
+selezionata (Gmail/Outlook), senza usare il client predefinito Windows.
+Allega il PDF nella bozza manuale. Il collegamento OAuth e l'invio reale
+richiedono un account configurato; i test eseguiti usano provider simulati.

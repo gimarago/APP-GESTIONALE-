@@ -1,0 +1,138 @@
+const {selectAgenda}=require('./navigation-helpers.cjs');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const {pathToFileURL}=require('node:url');
+const path=require('node:path'),fs=require('node:fs'),os=require('node:os'),assert=require('node:assert/strict');
+
+(async()=>{
+  const root=path.resolve(__dirname,'..'),dataDir=fs.mkdtempSync(path.join(os.tmpdir(),'officina-parking-profit-'));
+  const {createApplication}=await import(pathToFileURL(path.join(root,'server/server.mjs')));
+  const {addUser}=await import(pathToFileURL(path.join(root,'server/database.mjs')));
+  const app=await createApplication({root,dataDir,origin:'http://127.0.0.1:8136',env:{NODE_ENV:'test'}});
+  await addUser(app.db,'profit-test','test-password-1234','admin');
+  await new Promise(resolve=>app.server.listen(8136,'127.0.0.1',resolve));
+  const browser=await chromium.launch({...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),headless:true});
+  const page=await browser.newPage(),errors=[];
+  page.on('pageerror',error=>errors.push(error.stack));
+  page.on('dialog',dialog=>dialog.accept());
+  const frame=()=>page.frames().find(item=>item.url().includes('/legacy'));
+  const ready=()=>page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.WorkshopCloud&&!document.querySelector('iframe').contentWindow.WorkshopCloud.initializing);
+  const sync=()=>page.evaluate(()=>WorkshopCloudHost.flush());
+  const payload=()=>JSON.parse(app.db.prepare('SELECT payload FROM state').get().payload);
+  const parked=()=>payload().dom['#agenda .parking-section .card'].find(node=>node.t==='div'&&node.a?.class?.includes('parking-row'));
+  const lines=()=>JSON.parse(parked().a['data-work-lines']);
+  const money=value=>Number(String(value).trim().replace(',','.'));
+  const addStock=async(f,{name,price,markup})=>{
+    await f.locator('#magazzino [data-cloud-open="stockModal"]').click();
+    await f.locator('#stockProduct').fill(name);
+    await f.locator('#stockCategory').selectOption('Pneumatici estivi');
+    await f.locator('#stockQuantity').fill('8');
+    await f.locator('#stockPrice').fill(String(price));
+    if(markup)await f.locator('#stockUnitProfit').fill(String(markup));
+    await f.locator('#stockForm button[type="submit"]').click();
+    await f.waitForFunction(({name,markup})=>[...document.querySelectorAll('#stockRows tr')].some(row=>row.cells[0]?.textContent.trim()===name&&Number(row.dataset.unitProfit||0)===markup),{name,markup});
+    await f.waitForFunction(({name,price})=>[...document.querySelectorAll('#stockRows tr')].some(row=>row.cells[0]?.textContent.trim()===name&&window.stockInventoryApi.numberFrom(row.cells[3]?.textContent)===price),{name,price},{timeout:3000});
+    await sync();
+  };
+  try{
+    await page.goto('http://127.0.0.1:8136');
+    await page.locator('#username').fill('profit-test');
+    await page.locator('#password').fill('test-password-1234');
+    await page.locator('#loginForm button[type="submit"]').click();
+    await ready();
+    let f=frame();
+    await f.locator('.nav [data-view="magazzino"]').click();
+    await addStock(f,{name:'205/55 R16 91V Michelin',price:30,markup:0});
+    await addStock(f,{name:'225/45 R17 91W Pirelli',price:50,markup:12});
+
+    await selectAgenda(f,'parking');
+    await f.locator('.parking-head [data-cloud-open="parkingModal"]').click();
+    await f.locator('#parkCustomer').fill('Cliente profitto');
+    await f.locator('#parkPlate').fill('PP123AA');
+    await f.locator('#parkVehicle').fill('Fiat Panda');
+    await f.locator('#parkWork').fill('2 205/55 R16 91V Michelin');
+    await f.locator('#parkWorkAmount').fill('100');
+    await f.locator('#parkWorkAmount').press('Tab');
+    assert.equal(money(await f.locator('#parkWorkProfit').inputValue()),40,'senza ricarico: 100 - 2 × 30');
+
+    await f.locator('#addParkingWork').click();
+    const second=f.locator('#extraParkingWorks .extra-parking-work').nth(0);
+    await second.locator('.parking-work-description').fill('2 225/45 R17 91W Pirelli');
+    await second.locator('.parking-work-amount').fill('160');
+    await second.locator('.parking-work-amount').press('Tab');
+    assert.equal(money(await second.locator('.parking-work-profit').inputValue()),24,'con ricarico: 2 × 12');
+
+    await f.locator('#addParkingWork').click();
+    const third=f.locator('#extraParkingWorks .extra-parking-work').nth(1);
+    await third.locator('.parking-work-description').fill('Diagnosi centralina');
+    await third.locator('.parking-work-amount').fill('50');
+    await third.locator('.parking-work-profit').fill('35');
+    await f.locator('#parkStatus').selectOption('IN LAVORAZIONE');
+    await f.locator('#parkingForm button[type="submit"]').click();
+    await sync();
+    assert.deepEqual(lines().map(line=>Number(line.profit)),[40,24,35],'i tre profitti sono salvati sul server');
+    assert.equal(await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.filter(entry=>entry.source==='parking').length),0,'nessuna registrazione contabile prima del completamento');
+    assert.deepEqual(await f.evaluate(()=>[...document.querySelectorAll('#stockRows tr:not(.empty-filter)')].map(row=>Number(row.dataset.quantity))),[8,8],'nessuno scarico di magazzino prima del completamento');
+    console.log('PASS suggested and manual parking profits are shared without completing the vehicle');
+
+    await page.reload();await ready();f=frame();
+    await selectAgenda(f,'parking');
+    await f.locator('.parking-row > div:first-child').first().click();
+    assert.equal(money(await f.locator('#parkWorkProfit').inputValue()),40);
+    assert.deepEqual(await f.locator('#extraParkingWorks .parking-work-profit').evaluateAll(inputs=>inputs.map(input=>Number(input.value.replace(',','.')))),[24,35]);
+    await f.locator('#parkingForm [data-cloud-close="parkingModal"]').click();
+    console.log('PASS parking profit fields survive page reload');
+
+    await f.locator('.parking-row .parking-status').first().selectOption('COMPLETATO');
+    await sync();
+    const entries=await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.filter(entry=>entry.source==='parking').map(entry=>({amount:entry.amount,profit:entry.state.profit})));
+    assert.equal(entries.length,1);
+    assert.equal(entries[0].amount,310);
+    assert.equal(entries[0].profit,99,'sum of parking line profits synchronizes to cashbook');
+    await f.locator('.nav [data-view="libroContabile"]').click();
+    const date=await f.evaluate(()=>{const now=new Date();return [now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');});
+    await f.locator('#ledgerDatePicker').fill(date);
+    await f.locator('#ledgerDatePicker').dispatchEvent('change');
+    assert.match(await f.locator('#ledgerRows .ledger-profit-trigger').first().innerText(),/99,00/);
+    await f.locator('#ledgerRows .ledger-profit-trigger').first().click();
+    assert.deepEqual(await f.locator('#ledgerProfitLines [data-profit-line]').evaluateAll(inputs=>inputs.map(input=>Number(input.value.replace(',','.')))),[40,24,35]);
+    await f.locator('#cancelLedgerProfit').click();
+    console.log('PASS completing a vehicle sends line profits and total to the cashbook');
+
+    await page.reload();await ready();f=frame();
+    await selectAgenda(f,'parking');
+    assert.deepEqual(lines().map(line=>Number(line.profit)),[40,24,35]);
+    const restored=await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.find(entry=>entry.source==='parking')?.state.profit);
+    assert.equal(restored,99,'cashbook profit survives server reload');
+    await f.locator('.parking-row > div:first-child').first().click();
+    await f.locator('#parkWorkProfit').fill('45');
+    await f.locator('#parkingForm button[type="submit"]').click();
+    await sync();
+    assert.deepEqual(lines().map(line=>Number(line.profit)),[45,24,35],'automatic suggestion remains editable');
+    assert.equal(await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.find(entry=>entry.source==='parking')?.state.profit),104,'editing completed parking profit updates the cashbook');
+    await page.reload();await ready();f=frame();
+    await selectAgenda(f,'parking');
+    assert.equal(await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.find(entry=>entry.source==='parking')?.state.profit),104,'edited profit survives page reload');
+    await f.locator('.nav [data-view="libroContabile"]').click();
+    await f.locator('#ledgerDatePicker').fill(date);
+    await f.locator('#ledgerDatePicker').dispatchEvent('change');
+    await f.locator('#ledgerRows .ledger-profit-trigger').first().click();
+    await f.locator('#ledgerProfitLines [data-profit-line]').nth(2).fill('37');
+    await f.locator('#ledgerProfitForm button[type="submit"]').click();
+    await sync();
+    assert.deepEqual(lines().map(line=>Number(line.profit)),[45,24,37],'a cashbook edit updates the parking work lines on the server');
+    assert.equal(await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.find(entry=>entry.source==='parking')?.state.profit),106);
+    await page.reload();await ready();f=frame();
+    await selectAgenda(f,'parking');
+    assert.deepEqual(lines().map(line=>Number(line.profit)),[45,24,37],'cashbook edit remains on the parking row after reload');
+    await f.locator('.parking-row > div:first-child').first().click();
+    assert.deepEqual(await f.locator('#extraParkingWorks .parking-work-profit').evaluateAll(inputs=>inputs.map(input=>Number(input.value.replace(',','.')))),[24,37],'parking editor shows the cashbook edit after reload');
+    await f.locator('#parkingForm [data-cloud-close="parkingModal"]').click();
+    assert.equal(await f.evaluate(()=>WorkshopLedgerCash.snapshot().entries.find(entry=>entry.source==='parking')?.state.profit),106,'cashbook retains its edited total after reload');
+    assert.deepEqual(errors,[]);
+    console.log('PASS parking and cashbook profit edits synchronize both ways and survive reload without browser errors');
+  }finally{
+    await browser.close();
+    await new Promise(resolve=>app.server.close(resolve));
+    app.db.close();
+  }
+})().catch(error=>{console.error(error);process.exitCode=1;});

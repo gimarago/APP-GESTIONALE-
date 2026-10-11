@@ -1,0 +1,74 @@
+@media screen {
+  .cash-help {font-size:12px;line-height:1.7;color:var(--muted);margin:9px 0 15px;}
+  .cash-summary .cardhead {align-items:flex-start;flex-wrap:wrap;}
+  .cash-summary .cardhead>div {flex:1;min-width:240px;}
+  .cash-summary h3 {font-size:14px;margin:24px 0 15px;}
+  .cash-kpis {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0;}
+  .cash-kpis>div {padding:17px;border:1px solid var(--line);border-radius:11px;background:var(--paper);}
+  .cash-kpis span,.cash-kpis small {display:block;font-size:11px;color:var(--muted);line-height:1.6;}
+  .cash-kpis strong {display:block;font-size:24px;letter-spacing:-.7px;margin:9px 0 4px;}
+  .cash-cycle {margin:0;padding:18px;border-top:0;}
+  .cash-cycle-head {margin-bottom:12px;}
+  .cash-cycle h3 {margin:0 0 4px!important;font-size:14px;}
+  .cash-cycle-head p,.cash-cycle-note {margin:0;color:var(--muted);font-size:11px;line-height:1.6;}
+  .cash-cycle-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0;}
+  .cash-cycle-grid>div {min-width:0;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);}
+  .cash-cycle-grid span,.cash-cycle-grid small {display:block;color:var(--muted);font-size:10px;line-height:1.5;}
+  .cash-cycle-grid strong {display:block;margin:6px 0;font-size:18px;letter-spacing:-.3px;overflow-wrap:anywhere;}
+  .cash-cycle-grid .cash-cycle-result {border-color:color-mix(in srgb,var(--green) 30%,var(--line));background:color-mix(in srgb,var(--green) 6%,var(--paper));}
+  .cash-cycle-note {margin-top:8px;}
+  .cash-table-wrap {overflow:auto;max-width:100%;}
+  .cash-table {min-width:760px;}
+  .cash-table small,.cash-return-row small {display:block;color:var(--muted);font-size:10px;margin-top:5px;}
+  .cash-table td {vertical-align:top;}
+  .cash-customer-toggle {display:flex;align-items:flex-start;gap:9px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer;}
+  .cash-customer-toggle>span:last-child {min-width:0;}
+  .cash-customer-toggle small,.cash-customer-average small {display:block;color:var(--muted);font-size:10px;margin-top:5px;}
+  .cash-customer-chevron {display:inline-grid;place-items:center;flex:none;width:18px;height:18px;border:1px solid var(--line);border-radius:5px;color:var(--green);font-size:17px;line-height:1;transition:transform .15s ease;}
+  .cash-customer-toggle[aria-expanded="true"] .cash-customer-chevron {transform:rotate(90deg);}
+  .cash-customer-toggle:focus-visible {outline:2px solid var(--green);outline-offset:3px;border-radius:4px;}
+  .cash-customer-detail[hidden] {display:none;}
+  .cash-customer-detail>td {padding:4px 10px 13px!important;background:var(--paper);}
+  .cash-customer-worklist {display:grid;gap:8px;}
+  .cash-customer-work {display:grid;grid-template-columns:minmax(150px,1fr) minmax(170px,auto) auto auto;gap:12px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--white);}
+  .cash-customer-work-title {min-width:0;overflow-wrap:anywhere;}
+  .cash-customer-work-title small {display:block;color:var(--muted);font-size:11px;margin-top:4px;}
+  .cash-customer-work-meta {font-size:11px;color:var(--muted);}
+  .cash-customer-work>strong {white-space:nowrap;}
+  .cash-search-label {display:grid;gap:7px;font-size:11px;color:var(--muted);max-width:430px;}
+  .cash-search-label input {padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:12px Manrope,Arial,sans-serif;min-width:0;}
+  .cash-history {margin-top:24px;border-top:1px solid var(--line);padding-top:17px;}
+  .cash-history summary {font-size:13px;font-weight:700;cursor:pointer;}
+  .cash-history .cash-table-wrap {margin-top:19px;}
+  .cash-error {color:#b34330;font-size:12px;line-height:1.7;}
+  .tech-theme .cash-error {color:#ffbdab;}
+  #cashReturnDialog {width:min(850px,calc(100vw - 28px));max-height:calc(100dvh - 32px);overflow:auto;padding:27px;border:1px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);box-shadow:0 24px 90px #0006;}
+  #cashReturnDialog::backdrop {background:#050b14b8;backdrop-filter:blur(6px);}
+  #cashReturnDialog h2 {font-size:22px;margin:0;}
+  #cashReturnDialog .cardhead {gap:16px;}
+  #cashReturnDialog .field {max-width:260px;}
+  .cash-return-results {max-height:290px;overflow:auto;display:grid;gap:8px;margin:20px 0;}
+  .cash-return-option {display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--line);border-radius:9px;cursor:pointer;}
+  .cash-return-option:has(:checked) {border-color:var(--green);background:var(--paper);box-shadow:inset 3px 0 var(--green);}
+  .tech-theme .cash-return-option:has(:checked) {border-color:var(--accent);box-shadow:inset 3px 0 var(--accent);}
+  .cash-return-option span {flex:1;min-width:0;font-size:12px;}
+  .cash-return-option small {display:block;margin-top:5px;line-height:1.5;color:var(--muted);font-size:11px;}
+  .cash-return-option strong {white-space:nowrap;font-size:14px;}
+  .cash-return-option input {accent-color:var(--green);}
+  .cash-selection {padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:13px;margin-bottom:19px;line-height:1.7;}
+  .cash-selection[hidden] {display:none;}
+  .cash-return-row {background:#6cafab0d;}
+  .cash-return-row td:nth-child(7) {color:#207555;}
+  .tech-theme .cash-return-row td:nth-child(7) {color:#72dbb1;}
+  .cash-deposit-actions {display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .cash-deposit-delete {display:inline-grid;place-items:center;flex:none;width:26px;height:26px;padding:0;border:1px solid #b3433038;border-radius:6px;background:#b3433014;color:#b34330;font:700 18px/1 Arial,sans-serif;cursor:pointer;}
+  .cash-deposit-delete:hover {background:#b343302b;}
+  .cash-deposit-delete:focus-visible {outline:2px solid var(--accent,var(--green));outline-offset:2px;}
+  .cash-deposit-delete:disabled {opacity:.45;cursor:default;}
+  .tech-theme .cash-deposit-delete {color:#ffbdab;border-color:#ffbdab35;background:#ffbdab14;}
+  html[data-cloud-mode="read"] .cash-deposit-delete {display:none;}
+  @media(max-width:950px) {.cash-kpis {grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media(max-width:950px) {.cash-cycle-grid {grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media(max-width:850px) {.cash-customer-work {grid-template-columns:minmax(0,1fr) minmax(0,1fr);}}
+  @media(max-width:600px) {#cashReturnDialog {padding:18px;}.cash-return-option {gap:8px;padding:11px;}.cash-kpis strong {font-size:22px;}.cash-return-option strong {font-size:12px;}.cash-summary .cardhead>div {min-width:0;flex-basis:100%;}.cash-search-label {max-width:100%;}.cash-customer-work {grid-template-columns:1fr;gap:7px;}.cash-customer-work .btn {justify-self:start;}.cash-cycle-grid {grid-template-columns:1fr 1fr;}.cash-cycle-grid strong {font-size:16px;}}
+}

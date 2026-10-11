@@ -1,0 +1,8 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "launcher",
+  "description": "La schermata locale può solo verificare e aprire il VPS configurato.",
+  "local": true,
+  "windows": ["main"],
+  "permissions": ["allow-connect-vps"]
+}

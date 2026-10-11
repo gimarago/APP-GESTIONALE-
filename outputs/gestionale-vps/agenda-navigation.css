@@ -1,0 +1,10 @@
+/* Logical pages share the authoritative agenda and parking roots. */
+#agenda[data-agenda-view="calendar"] > .parking-section { display:none !important; }
+#agenda[data-agenda-view="parking"] > :not(.parking-section):not(.agenda-stock-warning):not(#agendaParkingTransferStatus) { display:none !important; }
+#agenda[data-agenda-view="parking"] > .parking-section { margin-top:0; }
+.nav-submenu[hidden] { display:none !important; }
+.nav .nav-group-toggle { width:100%; }
+.nav-submenu { display:grid; gap:3px; margin:3px 0 5px 20px; }
+.nav-submenu button { width:100%; }
+.nav [data-view="parking"] i svg { display:none; }
+.nav [data-view="parking"] i::before { content:'P'; display:grid; place-items:center; width:15px; height:15px; border:1px solid currentColor; border-radius:3px; font:700 10px Arial,sans-serif; }

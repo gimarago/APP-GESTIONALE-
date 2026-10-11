@@ -1,0 +1,50 @@
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os');
+const {pathToFileURL}=require('node:url');
+const {randomUUID}=require('node:crypto');
+const net=require('node:net');
+const I=require('../fatturazione.js'),R=require('../cloud-records.js');
+(async()=>{
+ const root=path.resolve(__dirname,'..'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'officina-sdi-e2e-'));
+ const {createApplication}=await import(pathToFileURL(path.join(root,'server/server.mjs')));
+ const {createSdiStore}=await import(pathToFileURL(path.join(root,'server/sdi-store.mjs')));
+ const {addUser,hash}=await import(pathToFileURL(path.join(root,'server/database.mjs')));
+ const seller={name:'Officina di prova',vat:'01114601006',address:'Via Roma 1',zip:'00100',city:'Roma',province:'RM'};
+ const probe=net.createServer();await new Promise(ok=>probe.listen(0,'127.0.0.1',ok));const port=probe.address().port;await new Promise(ok=>probe.close(ok));
+ let ready=true,store;const origin='http://127.0.0.1:'+port;
+ const app=await createApplication({root,dataDir:dir,origin,env:{NODE_ENV:'test',SHOP_VAT:seller.vat},createSdiRuntime:({db})=>{
+   store=createSdiStore(db,{environment:'test'});
+   return {store,status:()=>({enabled:ready,ready,environment:'test',issues:[]}),start(){},async stop(){},async callback(){return false;},async enqueue(data,auth){data.beforeEnqueue();return store.enqueue({...data,digest:hash(data.xml)},auth);}};
+ }});
+ await addUser(app.db,'test-admin','test-password-1234','admin');
+ await new Promise(ok=>app.server.listen(port,'127.0.0.1',ok));const base=origin;
+ const login=await fetch(base+'/api/login',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({username:'test-admin',password:'test-password-1234'})});
+ const session=await login.json(),cookie=login.headers.get('set-cookie').split(';')[0];
+ const date=new Date().toISOString().slice(0,10),doc=I.prepare({id:randomUUID(),status:'draft',type:'TD01',date,payment:'MP05',customer:{...seller,name:'Cliente sintetico',code:'0000000'},lines:[{description:'Lavoro sintetico',quantity:1,price:100,vat:22}]},{seller,documents:[]});
+ const state=R.empty();state.storage['officina.invoices.v1']=JSON.stringify({version:1,seller,documents:[doc]});
+ const saved=await fetch(base+'/api/changes',{method:'PUT',headers:{origin,cookie,'content-type':'application/json','x-csrf-token':session.csrf},body:JSON.stringify({protocol:2,clientId:randomUUID(),mutationId:randomUUID(),versions:{},changes:R.diff(null,state,{})})});assert.equal(saved.status,200);
+ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
+ const errors=[];
+ try{
+  const context=await browser.newContext({viewport:{width:1365,height:1000}}),page=await context.newPage();
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(base);await page.locator('#username').fill('test-admin');await page.locator('#password').fill('test-password-1234');await page.locator('#loginForm button[type="submit"]').click();
+  await page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.WorkshopCloud?.initializing===false);
+  const frame=page.frames().find(f=>f.url().includes('/legacy'));
+  await frame.locator('#documentsMenuToggle').click();await frame.locator('.nav [data-view="preventivi"]').click();
+  await frame.locator('#invArchive tbody tr').filter({hasText:'Cliente sintetico'}).getByRole('button',{name:'Apri',exact:true}).click();
+  await frame.waitForFunction(()=>!document.getElementById('invSdiSend').disabled);
+  let dialogs=0;page.on('dialog',async d=>{dialogs++;assert.match(d.message(),/COLLAUDO/);await d.accept();});
+  await frame.locator('#invSdiSend').click();await frame.waitForFunction(()=>document.querySelector('#sdiChannelPanel').textContent.includes('In coda'));
+  assert.equal(dialogs,1);assert.equal(store.list().length,1);assert.equal(await frame.locator('#invSdiSend').isDisabled(),true);
+  const job=store.claim();store.finish(job.id,{state:'UNKNOWN',claimToken:job.claimToken,message:'Risposta persa di prova'});
+  await frame.locator('#sdiChannelPanel').getByRole('button',{name:'Aggiorna esiti'}).click();await frame.getByText('Esito incerto · verifica necessaria',{exact:true}).first().waitFor();
+  await frame.locator('#sdiChannelPanel .sdi-row').first().getByRole('button',{name:'Dettaglio'}).click();await frame.locator('.sdi-detail').getByText(/Non reinviare/).waitFor();
+  const download=await Promise.all([page.waitForEvent('download'),frame.locator('.sdi-detail').getByRole('link',{name:'Scarica originale'}).click()]);assert.match(download[0].suggestedFilename(),/^IT01114601006_[a-z0-9]{5}\.xml$/);
+  ready=false;await frame.locator('#sdiChannelPanel').getByRole('button',{name:'Aggiorna esiti'}).click();await frame.locator('#sdiChannelBanner').getByText(/disattivato/).waitFor();assert.equal(await frame.locator('#invSdiSend').isDisabled(),true);
+  await page.setViewportSize({width:390,height:844});
+  assert.equal(await frame.locator('#sdiChannelPanel').evaluate(el=>el.scrollWidth<=el.clientWidth+2),true);
+  assert.deepEqual(errors,[]);console.log('SdI browser: explicit confirmation, idempotency, uncertain status, download, disabled mode and mobile panel verified.');
+ }catch(e){console.error('Browser errors:',errors);throw e;}finally{await browser.close();await app.close();const absolute=path.resolve(dir);assert.ok(absolute.startsWith(path.resolve(os.tmpdir())+path.sep)&&path.basename(absolute).startsWith('officina-sdi-e2e-'));fs.rmSync(absolute,{recursive:true,force:true});}
+})().catch(e=>{console.error(e);process.exitCode=1;});

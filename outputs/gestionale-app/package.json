@@ -1,0 +1,25 @@
+{
+  "name": "officina-app",
+  "version": "1.0.3",
+  "private": true,
+  "description": "App Windows, Android e iOS del gestionale M.A. Gomme, collegata al VPS",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build:windows": "tauri build --bundles nsis",
+    "android:init": "tauri android init",
+    "android:dev": "tauri android dev",
+    "android:build": "tauri android build --apk --target aarch64",
+    "ios:init": "tauri ios init",
+    "ios:dev": "tauri ios dev",
+    "ios:build": "tauri ios build",
+    "icons": "tauri icon assets/app-icon.png",
+    "test": "node --test tests/*.test.cjs",
+    "doctor": "node scripts/doctor.mjs",
+    "release:windows": "node scripts/prepare-windows-update.mjs"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.12.1",
+    "playwright": "1.62.1"
+  }
+}

@@ -1,0 +1,9 @@
+.agenda-stock-warning[hidden] { display:none !important; }
+.stock-warning-title { display:block; margin-bottom:5px; font-size:inherit; }
+.stock-warning-list { list-style:none; padding:0; margin:0; display:grid; gap:5px; }
+.stock-warning-item { display:flex; align-items:flex-start; gap:8px; }
+.stock-warning-item > span { flex:1; min-width:0; overflow-wrap:anywhere; }
+.stock-warning-dismiss { flex:none; display:grid; place-items:center; width:26px; height:26px; padding:0; border:1px solid currentColor; border-radius:5px; background:transparent; color:inherit; font:700 18px/1 Arial,sans-serif; cursor:pointer; opacity:.8; }
+.stock-warning-dismiss:hover,.stock-warning-dismiss:focus-visible { opacity:1; background:#ffffff1a; }
+.stock-warning-dismiss:focus-visible { outline:2px solid currentColor; outline-offset:2px; }
+@media(max-width:600px) { .stock-warning-dismiss { width:32px; height:32px; } }

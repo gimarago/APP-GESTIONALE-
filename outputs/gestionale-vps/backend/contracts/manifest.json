@@ -1,0 +1,86 @@
+[
+  {
+    "file": "Schema_VFPR12_v1.2.3.xsd",
+    "url": "https://www.fatturapa.gov.it/export/documenti/fatturapa/v1.4/Schema_VFPR12_v1.2.3.xsd",
+    "downloadedAt": "2026-09-11T20:41:03.856Z",
+    "sha256": "152944f6eef9f5d69ef6e955ee173b32142b00a8c1c5222fc97dfab5910e8a8c"
+  },
+  {
+    "file": "SdIRiceviFile_v1.0.wsdl",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/trasmissione/v1.0/SdIRiceviFile_v1.0.wsdl",
+    "downloadedAt": "2026-09-11T20:41:03.930Z",
+    "sha256": "cfe2c728b29f30d73c581e53b1b8ee3f226de7c94482e6f2b26ddfcfa52f1a36"
+  },
+  {
+    "file": "TrasmissioneTypes_v1.0.xsd",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/trasmissione/v1.0/TrasmissioneTypes_v1.0.xsd",
+    "downloadedAt": "2026-09-11T20:41:03.987Z",
+    "sha256": "d9c6bbdabf73aa5a1df8a5d3fde3c0030e742c59c71b2f180330806d20c6d685"
+  },
+  {
+    "file": "TrasmissioneTypes_v1.1.xsd",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/trasmissione/v1.0/TrasmissioneTypes_v1.1.xsd",
+    "downloadedAt": "2026-09-11T20:41:04.012Z",
+    "sha256": "e72fbcc91eae4dc497fb5ea662f2f2407187766dae72d39cacd5a5a9f877e5da"
+  },
+  {
+    "file": "TrasmissioneFatture_v1.1.wsdl",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/trasmissione/v1.0/TrasmissioneFatture_v1.1.wsdl",
+    "downloadedAt": "2026-09-11T20:41:04.100Z",
+    "sha256": "da80f4044754c923ed9df07c1d02112f1cf69393ea4472525482da089addc125"
+  },
+  {
+    "file": "Istruzioni-per-il-servizio-SDICoop-Trasmissione-versione3.3.pdf",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/trasmissione/v3.x/Istruzioni-per-il-servizio-SDICoop-Trasmissione-versione3.3.pdf",
+    "downloadedAt": "2026-09-11T20:41:04.243Z",
+    "sha256": "e43c0532446b1e30f5e14d4969786d0f66315bcf9f7c4ab948a2d406e45c7055"
+  },
+  {
+    "file": "Specifiche_tecniche_del_formato_FatturaPA_V1.4.pdf",
+    "url": "https://www.fatturapa.gov.it/export/documenti/fatturapa/v1.4/Specifiche_tecniche_del_formato_FatturaPA_V1.4.pdf",
+    "downloadedAt": "2026-09-11T20:41:04.306Z",
+    "sha256": "8adde9acf0596f14e2cce66f3c1a4d36ce4e13f65582b45c333fe28eee4d93dc"
+  },
+  {
+    "file": "xmldsig-core-schema.xsd",
+    "url": "https://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd",
+    "downloadedAt": "2026-09-11T20:41:28.391Z",
+    "sha256": "35cf8197da812c85e40d57891b35c94187569ed474a2dac813ce5090dafcd35c"
+  },
+  {
+    "file": "RicezioneFatture_v1.0.wsdl",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/ricezione/v1.0/RicezioneFatture_v1.0.wsdl",
+    "downloadedAt": "2026-09-28T20:30:46.086822+00:00",
+    "sha256": "78c1c91957a151f9c9606dbc42a51dbaac08ac5dc823468b58ed46f926723843"
+  },
+  {
+    "file": "RicezioneTypes_v1.0.xsd",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/ricezione/v1.0/RicezioneTypes_v1.0.xsd",
+    "downloadedAt": "2026-09-28T20:30:46.267332+00:00",
+    "sha256": "1c480c930403cecc92d1cd67d21ac7a1ade2c5d595ce1fdc4e7000174f2960de"
+  },
+  {
+    "file": "MessaggiTypes_v1.1.xsd",
+    "url": "https://www.fatturapa.gov.it/export/documenti/messaggi/v1.1/MessaggiTypes_v1.1.xsd",
+    "downloadedAt": "2026-09-28T20:30:46.387991+00:00",
+    "sha256": "6885c70b10593a42a1278fd4bb90386fa47b6c62a8557b80c71a1a0bf215ea6d"
+  },
+  {
+    "file": "Istruzioni-per-il-servizio-SDICoop-Ricezione-versione3.3.pdf",
+    "url": "https://www.fatturapa.gov.it/export/documenti/ws/ricezione/v3.x/Istruzioni-per-il-servizio-SDICoop-Ricezione-versione3.3.pdf",
+    "downloadedAt": "2026-09-28T20:30:46.639970+00:00",
+    "sha256": "10907004f2ce711f4e3ef3dbb4c89cdc956c77cf7951ed643439b6998ab38ecd"
+  },
+  {
+    "file": "Specifiche-tecniche-relative-al-Sistema-di-Interscambio-versione-1.8.4.pdf",
+    "url": "https://www.fatturapa.gov.it/export/documenti/Specifiche-tecniche-relative-al-Sistema-di-Interscambio-versione-1.8.4.pdf",
+    "downloadedAt": "2026-09-28T20:30:46.878621+00:00",
+    "sha256": "f3357ea93ee12fe4071ad73c422885756fbcf2d192f447c843fa5b79ceb6ef90"
+  },
+  {
+    "file": "MessaggiFatturaTypes_v1.0.xsd",
+    "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/288192/ST+Fatturazione+elettronica+-+MessaggiFatturaTypes_MessaggiFatturaTypes_v1.0.xsd/2b799419-1311-d901-80cf-8a64d4e23522",
+    "downloadedAt": "2026-09-28T20:32:05.381525+00:00",
+    "sha256": "24f91e8dd3839fee76b06cfd3dbbca74c71822fe6d2b66545d065a313ded7359"
+  }
+]

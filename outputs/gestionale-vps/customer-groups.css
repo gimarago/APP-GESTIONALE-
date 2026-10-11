@@ -1,0 +1,146 @@
+#clienti .customer-source-table {
+  display: none;
+}
+
+#clienti .customer-group-mobile-search {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #clienti .customer-group-mobile-search {
+    display: block;
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+  }
+}
+
+#clienti .customer-group-toggle,
+#clienti .customer-group-history,
+#clienti .customer-vehicle-history {
+  border: 0;
+  background: none;
+  color: var(--green, #5cd2e8);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+#clienti .customer-group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#clienti .customer-group-toggle::before {
+  content: '▸';
+  display: inline-block;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform .15s ease;
+}
+
+#clienti .customer-group-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+#clienti .customer-group-toggle:focus-visible,
+#clienti .customer-group-history:focus-visible,
+#clienti .customer-vehicle-history:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+#clienti .customer-group-count {
+  display: block;
+  padding-left: 21px;
+  color: var(--muted, #8197aa);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#clienti .customer-group-row {
+  background: rgba(94, 211, 233, .035);
+}
+
+#clienti .customer-vehicle-row td:first-child {
+  padding-left: 27px;
+  color: var(--muted, #8197aa);
+}
+
+#clienti .customer-vehicle-history {
+  padding: 0;
+}
+
+#clienti .customer-group-table .plate {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 4px 8px;
+  margin-top: 0;
+}
+
+#clienti .customer-group-history {
+  padding: 0;
+  font-size: 11px;
+}
+
+#clienti .customer-vehicle-actions {
+  white-space: nowrap;
+}
+
+#clienti .customer-vehicle-delete {
+  margin-left: 14px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: #bd563c;
+  background: var(--paper);
+  font: inherit;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#clienti .customer-vehicle-delete:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+#clienti .customer-vehicle-delete:disabled {
+  opacity: .45;
+  cursor: wait;
+}
+
+#clienti .customer-vehicle-delete[hidden] {
+  display: none;
+}
+
+#clienti .customer-vehicle-delete-status {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#clienti .customer-vehicle-delete-status.is-error {
+  color: #bd563c;
+}
+
+#clienti .customer-group-empty {
+  margin: 14px 0 0;
+  color: var(--muted, #8197aa);
+  font-size: 12px;
+  text-align: center;
+}
+

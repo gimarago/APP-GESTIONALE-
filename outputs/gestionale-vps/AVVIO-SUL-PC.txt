@@ -1,0 +1,31 @@
+PROVARE IL GESTIONALE SU WINDOWS
+
+1. Estrai tutto il file ZIP in una cartella. Non aprire i file dentro lo ZIP.
+2. Fai doppio clic su "Avvia gestionale sul PC.bat".
+3. Solo al primo avvio scegli nome utente e password (almeno 12 caratteri).
+   La password non viene mostrata mentre la scrivi: e normale.
+4. Si apre il browser. Se non si apre, digita:
+   http://127.0.0.1:8080
+5. Accedi con l'account appena creato: puoi subito inserire e modificare dati.
+   I salvataggi sono automatici. Attendi "Salvato sul VPS" prima di chiudere.
+
+Lascia aperta la finestra del server durante l'uso. Per fermarlo premi Ctrl+C.
+La volta successiva riapri lo stesso BAT: account e dati restano conservati.
+Non occorrono Docker o un VPS per questa prova sul PC.
+
+Il programma cerca Node.js 24 o successivo gia installato, incluso il runtime
+fornito da Codex su questo computer. Se non lo trova, mostra un messaggio:
+installa Node.js 24 e riprova. Non eseguire il BAT come amministratore.
+
+DATI
+L'archivio locale si trova in %LOCALAPPDATA%\OfficinaGestionale\data.
+Rimane separato dai vecchi dati del browser e dal futuro archivio sul VPS.
+Se vuoi importare i dati precedenti, segui deploy\MIGRAZIONE.md PRIMA di
+inserire dati di prova: l'importazione iniziale richiede un archivio vuoto.
+
+Per trasferire successivamente questi dati al VPS usa Gestione > Esporta copia
+dati e importa il file nel VPS vuoto come amministratore. Gli account vanno
+creati separatamente sul VPS; l'esportazione JSON non contiene le password.
+
+Questo avvio accetta connessioni solo dal PC. Per usare anche altri computer
+e telefoni attraverso Internet occorre completare l'installazione sul VPS.

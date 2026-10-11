@@ -1,0 +1,13 @@
+#manualModuleDialog{box-sizing:border-box;width:min(620px,94vw);max-height:88vh;overflow:auto;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--white);color:var(--ink)}
+#manualModuleDialog::backdrop{background:#0009}
+#manualModuleDialog [hidden]{display:none!important}
+#manualModuleDialog fieldset{min-width:0;border:0;margin:20px 0;padding:0}
+#manualModuleDialog legend{font-weight:700;margin-bottom:16px}
+#manualModuleDialog label{display:block;margin:12px 0 6px;font-size:12px}
+#manualModuleDialog select,#manualModuleDialog input{box-sizing:border-box;width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit}
+#manualModuleDialog .modal-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+#manualModuleStatus,#manualModuleSummary,#manualModuleDialog .muted{overflow-wrap:anywhere;line-height:1.5}
+#manualModuleStatus:empty{display:none}
+html[data-cloud-mode="read"] #insertManualModule{display:none!important}
+#formsArchive .module-original{flex:none;text-decoration:none}
+@media(max-width:600px){#manualModuleDialog{padding:18px}#manualModuleDialog .modal-actions .btn{padding:10px 12px}}
